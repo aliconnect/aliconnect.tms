@@ -418,7 +418,7 @@
       $('div').class("row paneltop").append(
         elButtonpanel = $('ul').class("col").id("elButtonpanel"),
         elOverview = $('ul').class("aco overview").id("elOverview").append(
-          $('img').src("image/bg_detail.png"),
+          $('img').src("img/bg_detail.png"),
           viewpanel = $('div').class("viewpanel").id("viewpanel"),
           targetpanel = $('div').class("viewpanel").id("targetpanel"),
         ),
@@ -542,7 +542,7 @@
                 elLiRDS.innerText = Math.round(Math.random() * 3);
               }).append(
                 elDetailContainerChild = $('div').class('col').style('height:800px;width:' + (840 * 8) + 'px;').append(
-                  $('img').src("image/bg_detail.png"),
+                  $('img').src("img/bg_detail.png"),
                 )
               ),
               $('div').class('kmb col').id('kmblb').append(
