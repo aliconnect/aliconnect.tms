@@ -1,0 +1,24 @@
+{
+  "info": {
+    "name": "Verkeerslicht"
+  },
+  "debug": true,
+  "authProvider": {
+    "auth": {
+      "scope": ["name", "email"],
+      "authorizationUrl": "https:/login.aliconnect.nl/api/oauth2",
+      "tokenUrl": "https://login.aliconnect.nl/api/token",
+      "clientId": "c52aba40-11fe-4400-90b9-cee5bda2c5aa"
+    }
+  },
+  "client": {
+    "servers": [
+      {
+        "url": "https://rws.aliconnect.nl/tms/api"
+      }
+    ]
+  },
+  "ws": {
+    "url": "wss://aliconnect.nl:444"
+  }
+}

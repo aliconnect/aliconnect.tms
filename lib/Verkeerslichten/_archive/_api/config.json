@@ -1,0 +1,20 @@
+{
+  "config": {
+    "oauth2": {
+      "url": "https://login.aliconnect.nl/api/oauth2"
+    },
+    "aim": {
+      "headers":{
+        "Authorization":"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJzaGEyNTYifQ.eyJpc3MiOiJyd3MuYWxpY29ubmVjdC5ubCIsInNjb3BlIjoid2Vic2l0ZS5yZWFkIG5hbWUgZW1haWwiLCJpZCI6IjM0NDM3ODciLCJhdWQiOiIzNjY2MTM0IiwiZXhwIjoxNjA1MTkwOTI3LCJpYXQiOjE2MDUxMDQ1Mjd9.LzqUeQceoe-9z__1-F-8iSm-JY9XERC9VdTeoSGnB-k"
+      },
+      "websocket": {
+        "servers": [
+          {"url": "ws://localhost:9101"}
+        ]
+      },
+      "servers": [
+        {"url": "http://localhost:9101/api"}
+      ]
+    }
+  }
+}
