@@ -1,18 +1,32 @@
 **secret**
+**private**
 .remote*
 .vs
+/config.json
+/api.json
+/config.yaml
+/openapi.json
+/openapi.yaml
+**node_modules**
+**data*.json
+*[a-zA-Z][0-9].*
 
-_**
+__**
 **Copy**
 **kopie**
 
 **.mp4
 **.log
+**.pdf
+**.zip
+
+
+**.jpg
+**.gif
+**.doc
+**.docx
 
 *test*
-
-**data*.json
-*[a-zA-Z][0-9].*
 
 **dcu**
 **~**
@@ -20,13 +34,13 @@ _**
 **desktop**
 cert/**
 /js/min
-**node_modules**
 /api/sql
 /app
 /inc
 /sites
 /wav
 /aim
+/docs
 /aim-connect
 /aim-api
 /test
@@ -34,5 +48,3 @@ cert/**
 /tmp
 /google**
 /**htaccess**
-
-/wiki
