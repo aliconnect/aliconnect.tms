@@ -1,5 +1,5 @@
 {
-  "name": "verkeerslichten_1",
+  "name": "Tunnel",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,6 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@aliconnect/sdk": "0.0.0"
+    "@aliconnect/api": "0.0.0"
   }
 }

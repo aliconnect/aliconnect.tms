@@ -1,15 +1,16 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<link  href="../../../../api/src/css/web.css" rel="stylesheet"/>
-<script src="../../../../api/src/js/aim.js"></script>
-<script src="../../../../api/src/js/web.js"></script>
+  <link href="/api/css/web_debug.css" rel="stylesheet"/>
+  <script src="/api/js/aim_debug.js"
+          libraries=""
+          type="text/javascript" ></script>
 </head>
 <body>
 <pre id="console"></pre>
 <script>
 (async function () {
-  aim().extend({
+  $().extend({
     authProvider: {
 
     },
@@ -19,21 +20,24 @@
     client: {
       servers: [
         {
-          url: "https://rws.aliconnect.nl/tms/api"
+          url: "https://rws.aliconnect.nl/api"
         }
       ]
     }
   })
-  await aim().api('/').query('request_type', 'data_json').get().then(event => aim().extend(event.body))
-  let items = aim().value;
-  let item = aim.get(aim().authProvider().sub);
-  let schemaName = item.schemaName;
-  if (schemaName === 'System') {
-    schemaName = 'Tunnel';
-  }
-  aim('script').parent(document.head).src(`../../lib/${schemaName}/index.js`)
-  console.log(aim.get(aim().authProvider().sub))
-  aim().on('ready', async event => {
+  $()
+  .on('load', async event => {
+    const topId = $().authProvider().sub;// 2804342;
+
+    await $().url($().client().servers[0].url+'.json').get().then(event => $().extend(event.body));
+
+    await $().api('/').query('request_type', 'build_data').query('id', topId).get().then(event => $().extend(event.body));
+    const items = $().value;
+    const item = items.find(item => item.ID == topId);
+    let schemaName = item.schemaName;
+    await $(document.head).script(`/tms/lib/${schemaName}/index.js`);
+    console.debug(item)
+    console.debug(...$.log(item.header0, 'UP'));
   })
 })()
 </script>

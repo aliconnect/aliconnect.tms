@@ -251,41 +251,41 @@ console.log('GUI');
 
   // console.log(auth.getAccessToken(), auth);
   console.log('START');
-  const auth = $().authProvider({});
-  const accessToken = auth.getAccessToken();
-  if (document.location.port>8000) {
-    $('script').parent(document.head).src('data.js')
-    $().extend({
-      ws: {
-        url: "wss://localhost:9001"
-      },
-      client: {
-        servers: [
-          {
-            url: "http://localhost:9001/api"
-          }
-        ]
-      }
-    })
-  } else {
-    $().extend({
-      ws: {
-        url: "wss://aliconnect.nl:444"
-      },
-      client: {
-        servers: [
-          {
-            url: "https://rws.aliconnect.nl/tms/api"
-          }
-        ]
-      }
-    })
-  }
   // console.log($.ws);
 
   $()
   .on('load', async event => {
     console.log('JA');
+    const auth = $().authProvider({});
+    const accessToken = auth.getAccessToken();
+    if (document.location.port>8000) {
+      $('script').parent(document.head).src('data.js')
+      $().extend({
+        ws: {
+          url: "wss://localhost:9001"
+        },
+        client: {
+          servers: [
+            {
+              url: "http://localhost:9001/api"
+            }
+          ]
+        }
+      })
+    } else {
+      $().extend({
+        ws: {
+          url: "wss://aliconnect.nl:444"
+        },
+        client: {
+          servers: [
+            {
+              url: "https://rws.aliconnect.nl/api"
+            }
+          ]
+        }
+      })
+    }
 
   })
   .on('ready', async event => {
@@ -610,18 +610,29 @@ console.log('GUI');
       $('div').id("popupselect")
     )
 
+    const topId = $().authProvider().sub;// 2804342;
+    console.log('topId', topId);
+    if (!topId) return;
+
     if ($().value) {
       $().value = $().value.map(item => $(item));
     } else {
       aim.elemTitle.text('LOADING CONFIGURATION DATA');
-      await $().api('/').query('request_type', 'data_json').get().then(event => $().extend(event.body));
+      await $().api('/').query('request_type', 'build_data').query('id', topId).get().then(event => $().extend(event.body));
     }
 
 
     let items = $().value;
-    items.forEach(item => item.data.children = items.filter(child => child.data.MasterID === item.data.ID))
+    items.forEach(item => item.data.children = items.filter(child => child.data.MasterID === item.data.ID && child.data.ID !== item.data.ID))
+
+
+
     // let item = aim.get($().authProvider().sub);
-    const item = items[0];
+    const item = items.find(item => item.ID == topId);
+    console.log('ITEM', item);
+
+
+
     const itemTunnel = item;
 
     aim.elemTitle.text($().info.title + ' ' + $().info.description);
@@ -761,6 +772,8 @@ console.log('GUI');
         else item.master[item.schema] = $().ref[item.id];
       }
     });
+
+
 
     function sumSignals() {
       (sumsignals = function (item) {
@@ -960,6 +973,7 @@ console.log('GUI');
     });
 
     (function build(item, level) {
+      // if (item.ID === 10) return;
       // console.log(new Date().valueOf()-st, `step${i++} ${level}`);
       // console.log('build', item.tag);
       if (item.schemaName === 'Weg') {
@@ -1011,6 +1025,7 @@ console.log('GUI');
       }
 
       const children = item.data.children;
+      // console.log(item, item.data.children, children);
       // console.log('children', children);
       if (children) {
         item.elDetailUL = $('ul').parent(item.elDetail);
