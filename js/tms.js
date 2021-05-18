@@ -26,7 +26,7 @@ huidige_tijd = function () {
   return new Date();
 }
 ms = function (s) { return s * 1000; }
-aim().extend(Host = {
+$().extend(Host = {
   title: "TMS",
   events: {
     load: function () {
@@ -47,7 +47,7 @@ aim().extend(Host = {
         },
         Admin: {
           items: {
-            "Edit API": { href: "#/aim()/editApi" },
+            "Edit API": { href: "#/$()/editApi" },
           }
         },
 
@@ -247,18 +247,18 @@ mnu = {
   }
 }
 
-aim().extend({
-  om: {
-    nav: {
-      items: {
-        Admin: {
-          className: "admin", items: {
-            "Publish": { href: "#/admin/publish" },
-          }
-        },
-      },
-    },
-  },
+$().extend({
+  // om: {
+  //   nav: {
+  //     items: {
+  //       Admin: {
+  //         className: "admin", items: {
+  //           "Publish": { href: "#/admin/publish" },
+  //         }
+  //       },
+  //     },
+  //   },
+  // },
   components: {
     schemas: {
       Attribute: {
@@ -494,9 +494,9 @@ aim().extend({
                 title: "SBS", object: "sbs",
                 onclick: function (event) {
                   //event.stopPropagation();
-                  aim().Document.create({ el: collist, item: this.item });
+                  $().Document.create({ el: collist, item: this.item });
                 },
-                //script: "/lib/" + aim().version + "/js/document.js",
+                //script: "/lib/" + $().version + "/js/document.js",
 
               },
               show3d: {
@@ -505,14 +505,14 @@ aim().extend({
                 //hidden: !this.properties || !this.properties.x || !this.properties.y || !this.properties.z || !(this.properties.x.value || this.properties.y.value || this.properties.z.value),
                 //hidden: this.schema != "system",
                 get hidden() {
-                  //console.debug("hidden", aim().itemPage);
-                  var item = aim().itemPage;
+                  //console.debug("hidden", $().itemPage);
+                  var item = $().itemPage;
                   return !item || !item.properties || !item.properties.x || !item.properties.y || !item.properties.z || !(item.properties.x.value || item.properties.y.value || item.properties.z.value);
                 },
                 //item: this,
                 onclick: function () {
-                  //console.debug("3D", aim().itemPage);
-                  aim().itemPage.model3d();
+                  //console.debug("3D", $().itemPage);
+                  $().itemPage.model3d();
                 }
               },
 
@@ -620,7 +620,7 @@ aim().extend({
           SalesMargin: { title: "Verkoop marge", unit: "%" },
           SalesPrice: {
             title: "Verkoop prijs", readOnly: true, format: "currency", format: "number", multipleOf: 0.01, get: function () {
-              var srcItem = aim().api.item[this.srcID] || { values: {} };
+              var srcItem = $().api.item[this.srcID] || { values: {} };
               return Number(this.values.cp || srcItem.values.cp) * (100 - Number(this.values.sd || srcItem.values.sd || 0)) / 100
             }
           }, // sales price
@@ -635,7 +635,7 @@ aim().extend({
           PurchaseDiscount: { title: "Inkoop korting", unit: "%" }, // purchase discount
           PurchasePrice: {
             title: "Inkoop prijs", readOnly: true, format: "currency", get: function () {
-              var srcItem = aim().api.item[this.srcID] || { values: {} };
+              var srcItem = $().api.item[this.srcID] || { values: {} };
               return (this.values.cp || srcItem.values.cp) * (100 - Number(this.values.pd || srcItem.values.pd || 0)) / 100
             }
           }, // purchase price
@@ -720,7 +720,7 @@ aim().extend({
   }
 });
 
-aim().extend({
+$().extend({
   components: {
     schemas: {
       "Verkeersgeleiding-functies": {
@@ -1107,8 +1107,8 @@ aim().extend({
 
             //value: {
             //	set(value) {
-            //		aim().messenger.send({
-            //			to: [aim().client.domain.id], value: [
+            //		$().messenger.send({
+            //			to: [$().client.domain.id], value: [
             //				{ id: this.id, schema: this.schema, values: { stand: value }, },
             //			]
             //		});
@@ -2663,7 +2663,7 @@ aim().extend({
               //debug this.sf_Afsluitbomen_Camera.sf_voorkeurskanaal.SelecteerCameraMetPreset(this.sf_Afsluitbomen_Camera, this.afsluitbomen_camera_preset);
               this.SetVerkeerslichtenOpAutobediening();
 
-              //aim().messenger.send({ to: [aim().client.domain.id], initdefaultvalue: [{ id: 3318018, operations: { SetStand: ['rood'] } }] });
+              //$().messenger.send({ to: [$().client.domain.id], initdefaultvalue: [{ id: 3318018, operations: { SetStand: ['rood'] } }] });
 
 
             },
@@ -10675,12 +10675,12 @@ cf_VluchtrouteOndersteuning: {
 }
 }
 });
-aim().extend({
+$().extend({
   components: {
     schemas: {
       Company:{},
       Verkeersbuis: {
-        //cf_Afsluiter_Verkeersbuis: aim().api.components.schemas.cf_Afsluiter_Verkeersbuis,
+        //cf_Afsluiter_Verkeersbuis: $().api.components.schemas.cf_Afsluiter_Verkeersbuis,
         // {
         //     Hand_VerkeerslichtenRood: function() {
         //         //console.debug("Verkeerslichten", this.bf_Verkeerslichten_Verkeersbuis);
@@ -10699,7 +10699,7 @@ aim().extend({
     },
   },
 });
-aim().extend({
+$().extend({
   // client: {
   // 	//system: { id: 3487430, uid: "C00C5B73-4565-4046-8CFE-1DDAF9CEAE82" },
   // 	//domain: { id: 3487430, uid: "C00C5B73-4565-4046-8CFE-1DDAF9CEAE82" },
@@ -11042,7 +11042,7 @@ aim().extend({
 // 						this.doel_stand = "rood";
 // 						this.SetVerkeerslichtenOpAutobediening();
 //
-// 						//aim().messenger.send({ to: [aim().client.domain.id], initdefaultvalue: [{ id: 3318018, operations: { SetStand: ['rood'] } }] });
+// 						//$().messenger.send({ to: [$().client.domain.id], initdefaultvalue: [{ id: 3318018, operations: { SetStand: ['rood'] } }] });
 //
 //
 // 					},

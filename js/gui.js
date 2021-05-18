@@ -1,3 +1,4 @@
+console.log('GUI');
 (function() {
   var elTabSystem;
   function getvalue (item, name) {
@@ -249,18 +250,45 @@
   });
 
   // console.log(auth.getAccessToken(), auth);
+  console.log('START');
   const auth = $().authProvider({});
   const accessToken = auth.getAccessToken();
+  if (document.location.port>8000) {
+    $('script').parent(document.head).src('data.js')
+    $().extend({
+      ws: {
+        url: "wss://localhost:9001"
+      },
+      client: {
+        servers: [
+          {
+            url: "http://localhost:9001/api"
+          }
+        ]
+      }
+    })
+  } else {
+    $().extend({
+      ws: {
+        url: "wss://aliconnect.nl:444"
+      },
+      client: {
+        servers: [
+          {
+            url: "https://rws.aliconnect.nl/tms/api"
+          }
+        ]
+      }
+    })
+  }
+  // console.log($.ws);
 
   $()
-  .on('message', async event => {
-    console.log(event);
-  })
   .on('load', async event => {
-    console.log(event);
+    console.log('JA');
+
   })
   .on('ready', async event => {
-    // await $().login();
     // await $().api('/').get().then(event => $().extend(event.body));
     const vmsOptions = {wall:'1', control:1};
     // var vmsOptions = {wall:'1'};
@@ -423,7 +451,7 @@
           targetpanel = $('div').class("viewpanel").id("targetpanel"),
         ),
       ),
-      $('div').class("row aco panelbottom").append(
+      $('div').class("row aco").append(
         aim.elTabsLeftControl = $('div').class("row tabsControl").id("elTabsLeftControl"),
         $('div').class("row aco tabsleft").append(
           aim.elPanelTree = $('ul').class("col panel").id("elPanelTree"),
@@ -582,440 +610,354 @@
       $('div').id("popupselect")
     )
 
-    function init(body) {
-      console.log(body);
-      const items = body.value;
-      items.forEach(item => item.data.children = items.filter(child => child.data.MasterID === item.data.ID))
-      const item = items.find(item => item.ID == body.sub);
-      // init(items, items.find(item => item.ID == body.sub));
+    if ($().value) {
+      $().value = $().value.map(item => $(item));
+    } else {
+      aim.elemTitle.text('LOADING CONFIGURATION DATA');
+      await $().api('/').query('request_type', 'data_json').get().then(event => $().extend(event.body));
+    }
 
-      console.log(item, item.data);
-      // let items = $().value.filter(Boolean);
-      // console.log(items);
-      // items.forEach(item => item.data.children = items.filter(child => child.data.MasterID === item.data.ID))
-      // let item = aim.get($().authProvider().sub);
-      // const item = items[0];
-      const itemTunnel = item;
-      // return;
 
-      aim.elemTitle.text($().info.title + ' ' + $().info.description);
+    let items = $().value;
+    items.forEach(item => item.data.children = items.filter(child => child.data.MasterID === item.data.ID))
+    // let item = aim.get($().authProvider().sub);
+    const item = items[0];
+    const itemTunnel = item;
 
-      aim.buttonVerkeer.elem.click()
-      Object.entries(menu).forEach(([name1,topmenuitem]) => $('li').parent(aim.elPanelTree).append(
-        topmenuitem.elLI = $('div').class('row sumitems').open(0).append(
-          $('span').text(topmenuitem.title || name1),
-          $('i').class('icon sum deelsysteem_alarm'),
-          $('i').class('icon sum verkeerskundig'),
-          $('i').class('icon sum hand'),
-        ),
-        $('ul').class('col').append(
-          Object.entries(topmenuitem.children).map(([name2,menuitem]) => {
-            menuitem.parent = topmenuitem;
-            function onopen() {
-              console.log(this.items);
-              with (this.tabpanel = elPanel.createElement('LI', this.id, { bedieningswijze: this.values && this.values.bedieningswijze ? this.values.bedieningswijze.title || this.values.bedieningswijze || '' : '' } )) {
-                with (createElement('DIV', 'row', { open: 1 })) {
-                  createElement('SPAN', '', this.menuitem.title || this.menuitem.name);
-                  with (createElement('DIV', 'btns')) {
-                    createElement('A', 'btn_auto', { item: this, onclick: function (event) {
-                      event.stopPropagation();
-                      Gui.msgSend({ id: this.item.id, method: { SetOpAutobediening: [] } });
-                    }});
-                    createElement('A', 'btn_hand', { item: this, onclick: function (event) {
-                      event.stopPropagation();
-                      Gui.msgSend({ id: this.item.id, method: { SetOpHandbediening: [] } });
-                    }});
-                  }
-                  //if (!level) createElement('A', { className: 'close' });
+    aim.elemTitle.text($().info.title + ' ' + $().info.description);
+
+    aim.buttonVerkeer.elem.click()
+    Object.entries(menu).forEach(([name1,topmenuitem]) => $('li').parent(aim.elPanelTree).append(
+      topmenuitem.elLI = $('div').class('row sumitems').open(0).append(
+        $('span').text(topmenuitem.title || name1),
+        $('i').class('icon sum deelsysteem_alarm'),
+        $('i').class('icon sum verkeerskundig'),
+        $('i').class('icon sum hand'),
+      ),
+      $('ul').class('col').append(
+        Object.entries(topmenuitem.children).map(([name2,menuitem]) => {
+          menuitem.parent = topmenuitem;
+          function onopen() {
+            console.log(this.items);
+            with (this.tabpanel = elPanel.createElement('LI', this.id, { bedieningswijze: this.values && this.values.bedieningswijze ? this.values.bedieningswijze.title || this.values.bedieningswijze || '' : '' } )) {
+              with (createElement('DIV', 'row', { open: 1 })) {
+                createElement('SPAN', '', this.menuitem.title || this.menuitem.name);
+                with (createElement('DIV', 'btns')) {
+                  createElement('A', 'btn_auto', { item: this, onclick: function (event) {
+                    event.stopPropagation();
+                    Gui.msgSend({ id: this.item.id, method: { SetOpAutobediening: [] } });
+                  }});
+                  createElement('A', 'btn_hand', { item: this, onclick: function (event) {
+                    event.stopPropagation();
+                    Gui.msgSend({ id: this.item.id, method: { SetOpHandbediening: [] } });
+                  }});
                 }
-                with (this.elUl = createElement('ul')) {
-                  //if (this.control) {
-                  //	var variabelen = this.control.variabelen;
-                  //	for (var name in variabelen) {
-                  //		var prop = variabelen[name];
-                  //		if (prop.gui) with (createElement('DIV', { className: 'row' })) {
-                  //			if (name in this.values) this.tabpanel.setAttribute(name, getvalue(this, name));
-                  //			createElement('SPAN', { className: 'aco', innerText: prop.title });
-                  //			createElement('SPAN', {
-                  //				className: 'selectpo ' + this.id + '_' + name, innerText: String(getvalue(this, name)).replace(/_/g, ' ').capitalize(), item: this, enum: variabelen[prop.Gui.selectvariabele].enum, bediening: prop.Gui.bediening,
-                  //				onclick: function () {
-                  //					var options = this.enum.split('|');
-                  //					var rect = this.getBoundingClientRect();
-                  //					var span = this;
-                  //					with (popupselect) {
-                  //						options.forEach(function (option) {
-                  //							//console.log(span, span.item, span.bediening);
-                  //							createElement('DIV', {
-                  //								value: option, innerText: String(option.replace(/_/g, ' ')).capitalize(), span: span, onclick: function () {
-                  //									Gui.msgSend({ id: this.span.item.id, method: { [this.span.bediening]: [this.value] } });
-                  //									popupselect.innerText = '';
-                  //								}
-                  //							});
-                  //						});
-                  //						style.left = (rect.right - popupselect.offsetWidth) + 'px';
-                  //						style.top = rect.top + 'px';
-                  //					}
-                  //				}
-                  //			});
-                  //		}
-                  //	}
-                  //}
-                  if (this.items) this.items.forEach(function (item) {
-                    with (item.elLI = createElement('LI')) {
-                      with (createElement('DIV', 'row sumitems', { items: [item], open: 0 })) {
-                        createElement('SPAN', '', item.title || item.name);
-                        createElement('icon', 'icon sum deelsysteem_alarm');
-                        createElement('icon', 'icon sum verkeerskundig');
-                        createElement('icon', 'icon sum hand');
-                      }
-                      (addchildren = function (item) {
-                        if (!item.children) return;
-                        with (item.elLI.createElement('ul')) {
-                          item.children.forEach(function (child) {
-                            with (child.elLI = createElement('LI')) {
-                              with (createElement('DIV', 'row sumitems', { items: [child], open: 0 })) {
-                                createElement('SPAN', '', child.title || child.name);
-                                createElement('icon', 'icon sum deelsysteem_alarm');
-                                createElement('icon', 'icon sum verkeerskundig');
-                                createElement('icon', 'icon sum hand');
-                              }
-                              addchildren(child);
-                            }
-                          });
-                        }
-                      })(item);
+                //if (!level) createElement('A', { className: 'close' });
+              }
+              with (this.elUl = createElement('ul')) {
+                //if (this.control) {
+                //	var variabelen = this.control.variabelen;
+                //	for (var name in variabelen) {
+                //		var prop = variabelen[name];
+                //		if (prop.gui) with (createElement('DIV', { className: 'row' })) {
+                //			if (name in this.values) this.tabpanel.setAttribute(name, getvalue(this, name));
+                //			createElement('SPAN', { className: 'aco', innerText: prop.title });
+                //			createElement('SPAN', {
+                //				className: 'selectpo ' + this.id + '_' + name, innerText: String(getvalue(this, name)).replace(/_/g, ' ').capitalize(), item: this, enum: variabelen[prop.Gui.selectvariabele].enum, bediening: prop.Gui.bediening,
+                //				onclick: function () {
+                //					var options = this.enum.split('|');
+                //					var rect = this.getBoundingClientRect();
+                //					var span = this;
+                //					with (popupselect) {
+                //						options.forEach(function (option) {
+                //							//console.log(span, span.item, span.bediening);
+                //							createElement('DIV', {
+                //								value: option, innerText: String(option.replace(/_/g, ' ')).capitalize(), span: span, onclick: function () {
+                //									Gui.msgSend({ id: this.span.item.id, method: { [this.span.bediening]: [this.value] } });
+                //									popupselect.innerText = '';
+                //								}
+                //							});
+                //						});
+                //						style.left = (rect.right - popupselect.offsetWidth) + 'px';
+                //						style.top = rect.top + 'px';
+                //					}
+                //				}
+                //			});
+                //		}
+                //	}
+                //}
+                if (this.items) this.items.forEach(function (item) {
+                  with (item.elLI = createElement('LI')) {
+                    with (createElement('DIV', 'row sumitems', { items: [item], open: 0 })) {
+                      createElement('SPAN', '', item.title || item.name);
+                      createElement('icon', 'icon sum deelsysteem_alarm');
+                      createElement('icon', 'icon sum verkeerskundig');
+                      createElement('icon', 'icon sum hand');
                     }
-                  });
-                }
-              }
-              Gui.sumSignals();
-            }
-            menuitem.name = name2;
-            menuitem.elUL = $('ul').parent(aim.elPanel).class('col');
-            return $('li').append(
-              menuitem.elLI = $('div').class('row sumitems').open(0).on('open', onopen).append(
-                $('i').class('icon sum bb'),
-                $('i').class('icon sum deelsysteem_alarm'),
-                $('i').class('icon sum verkeerskundig'),
-                $('i').class('icon sum hand'),
-                $('span').text(menuitem.title || name2),
-              ),
-            )
-          })
-        )
-      ))
-      const schemas = $().get('schemas');
-      items.forEach(item => {
-        // waarom dit
-        return;
-        item.name = [item.schema, item.schema, item.id].join('_');
-        item.className = [item.schema, item.schema, item.id].join(' ');
-        if (em.definitions[item.schema]) {
-          (api.components.schemas[item.schema] = api.components.schemas[item.schema] || {}).control = em.definitions[item.schema];
-        }
-        //if (Gui.definitions[item.schema]) (api.components.schemas[item.schema] = api.components.schemas[item.schema] || {}).gui = Gui.definitions[item.schema];
-        // console.log($().get('schemas'))
-        if (schemas.get(item.schema)) {
-          // Object.assign(item, $().components.schemas[item.schema]);
-          if (item.gui) {
-            // console.log(item);
-            Gui.itemids[item.id] = item;
-            //if (item.gui.construct) item.gui.construct.call(item);
-          }
-        }
-        // $().ref[item.id] = item;
-        return item;
-      });
-      items.forEach(item => {
-        // waarom dit
-        return;
-        if (item.masterID && $().ref[item.masterID]) {
-          item.master = $().ref[item.masterID];
-          if (Object.prototype.toString.call(item.master[item.schema]) === '[object Array]') item.master[item.schema].push($().ref[item.id]);
-          else item.master[item.schema] = $().ref[item.id];
-        }
-      });
-
-      function sumSignals() {
-        (sumsignals = function (item) {
-          item.signals = {
-            deelsysteem_alarm: 0,
-            deelsysteem_alarm_active: 0,
-            deelsysteem_storing: 0,
-            deelsysteem_storing_active: 0,
-            status_melding: 0,
-            status_melding_active: 0,
-          }
-          for (var name in item.properties) {
-            var prop = item.properties[name];
-            if (prop.stereotype === "signalering") {
-              if (item[name]) {
-                item.signals[prop.type]++;
-                if (item[name].value) item.signals[prop.type + '_active']++;
+                    (addchildren = function (item) {
+                      if (!item.children) return;
+                      with (item.elLI.createElement('ul')) {
+                        item.children.forEach(function (child) {
+                          with (child.elLI = createElement('LI')) {
+                            with (createElement('DIV', 'row sumitems', { items: [child], open: 0 })) {
+                              createElement('SPAN', '', child.title || child.name);
+                              createElement('icon', 'icon sum deelsysteem_alarm');
+                              createElement('icon', 'icon sum verkeerskundig');
+                              createElement('icon', 'icon sum hand');
+                            }
+                            addchildren(child);
+                          }
+                        });
+                      }
+                    })(item);
+                  }
+                });
               }
             }
+            Gui.sumSignals();
           }
-          if (item.children) item.children.forEach(sumsignals);
-          if (item.master && item.master.signals) for (var name in item.signals) item.master.signals[name] += item.signals[name];
-          //console.log(item.title, item.signals);
-        })(itemTunnel);
-
-        for (var i = 0, el, c = document.getElementsByClassName('sumitems') ; el = c[i]; i++) {
-          if (!el.items) continue;
-          var signals = {
-            deelsysteem_alarm: 0,
-            deelsysteem_alarm_active: 0,
-            deelsysteem_storing: 0,
-            deelsysteem_storing_active: 0,
-            status_melding: 0,
-            status_melding_active: 0,
-          };
-          el.items.forEach(function (item) {
-            for (var name in item.signals) signals[name] += item.signals[name];
-          });
-          for (var name in signals) el.setAttribute(name, signals[name]);
+          menuitem.name = name2;
+          menuitem.elUL = $('ul').parent(aim.elPanel).class('col');
+          return $('li').append(
+            menuitem.elLI = $('div').class('row sumitems').open(0).on('open', onopen).append(
+              $('i').class('icon sum bb'),
+              $('i').class('icon sum deelsysteem_alarm'),
+              $('i').class('icon sum verkeerskundig'),
+              $('i').class('icon sum hand'),
+              $('span').text(menuitem.title || name2),
+            ),
+          )
+        })
+      )
+    ))
+    const schemas = $().get('schemas');
+    items.forEach(item => {
+      // waarom dit
+      return;
+      item.name = [item.schema, item.schema, item.id].join('_');
+      item.className = [item.schema, item.schema, item.id].join(' ');
+      if (em.definitions[item.schema]) {
+        (api.components.schemas[item.schema] = api.components.schemas[item.schema] || {}).control = em.definitions[item.schema];
+      }
+      //if (Gui.definitions[item.schema]) (api.components.schemas[item.schema] = api.components.schemas[item.schema] || {}).gui = Gui.definitions[item.schema];
+      // console.log($().get('schemas'))
+      if (schemas.get(item.schema)) {
+        // Object.assign(item, $().components.schemas[item.schema]);
+        if (item.gui) {
+          // console.log(item);
+          Gui.itemids[item.id] = item;
+          //if (item.gui.construct) item.gui.construct.call(item);
         }
       }
+      // $().ref[item.id] = item;
+      return item;
+    });
+    items.forEach(item => {
+      // waarom dit
+      return;
+      if (item.masterID && $().ref[item.masterID]) {
+        item.master = $().ref[item.masterID];
+        if (Object.prototype.toString.call(item.master[item.schema]) === '[object Array]') item.master[item.schema].push($().ref[item.id]);
+        else item.master[item.schema] = $().ref[item.id];
+      }
+    });
 
-      setInterval(event => $(document.body).attr('blink', aim.blink^= 1), 1000);
-      setInterval(event => aim.timeElem.text(new Date().toLocaleTimeString()), 1000);
-
-      item.elDetail = elDetailContainerChild;
-      item.elOverview = elOverview;
-
-      const tabsLeft = [];
-      items.filter(item => item.schemaName === 'Verkeersbuis').forEach(item => {
-        // (aim.elTabsLeftControlBuis.items = aim.elTabsLeftControlBuis.items || []).push(item);
-          //Gui.createPanelTreeItem('Buis');
-          //Gui.createPanelTreeItem('Verkeer');
-          //Gui.elementSignalCount.push(Gui.elTabsLeftControlBuis);
-
-
-        var treeitems = [];
-        tabsLeft.push({
-          name: item.data.Tag.Value,
-          treeitems: 'Buis,Vluchtroute,Tunnel,Verkeer,Detecties,Overig'.split(','),
-          filter: 'HLi,Tunnel'.split(','),
-        })
-        var pdRoodUit = function () { }
-        let kanaalID = 0;
-        function setCam(camID) {
-          const cam = webcam.cams[camID];
-          console.log(camID, webcam.cams, cam);
-          webcam.send('SETWALL', {target: channels[kanaalID].id, cam: cam.cam } );
+    function sumSignals() {
+      (sumsignals = function (item) {
+        item.signals = {
+          deelsysteem_alarm: 0,
+          deelsysteem_alarm_active: 0,
+          deelsysteem_storing: 0,
+          deelsysteem_storing_active: 0,
+          status_melding: 0,
+          status_melding_active: 0,
         }
-        function camNext () {
-          setCam(channels[kanaalID].camID = Math.min(webcam.cams.length-1, 'camID' in channels[kanaalID] ? channels[kanaalID].camID + 1 : 0));
-          // return;
-          // // $().messenger.send({ to: [$().client.domain.id], kanaal: this.kanaalID, cam: CCTV.kanalen[this.kanaalID].cameraID = Math.min(CCTV.cameras.length - 1, CCTV.kanalen[this.kanaalID].cameraID + 1) });
-          // $().ws.request({
-          // 	from:'gui',
-          // 	method:'POST',
-          // 	path: `/kanaal(${this.kanaalID})/camera(${$().kanalen[this.kanaalID].cameraID = Math.min($().cameras.length - 1, $().kanalen[this.kanaalID].cameraID + 1)})`
-          // });
-        };
-        function camPrior () {
-          setCam(channels[kanaalID].camID = Math.max(0, 'camID' in channels[kanaalID] ? channels[kanaalID].camID - 1 : 0));
-          // const camID = channels[kanaalID].camID = channels[kanaalID].camID ? channels[kanaalID].camID - 1 : 0;
-          // webcam.send('SETWALL', {target: channels[kanaalID].id, cam: cams[camID].cam } );
-          // return;
-          // // $().messenger.send({ to: [$().client.domain.id], kanaal: this.kanaalID, cam: CCTV.kanalen[this.kanaalID].cameraID = Math.max(0, CCTV.kanalen[this.kanaalID].cameraID - 1) });
-          // $().ws.request({ from:'gui', method:'POST', path: `/kanaal(${this.kanaalID})/camera(${$().kanalen[this.kanaalID].cameraID = Math.max(0, $().kanalen[this.kanaalID].cameraID - 1)})` });
-        }
-        function kanaalNext () {
-          kanaalID = Math.min(channels.length, kanaalID + 1);
-          console.debug(kanaalID);
-          // $().ws.request({ from:'gui', method:'POST', path: `/kanaal(${this.kanaalID})` });
-        };
-        function kanaalPrior () {
-          kanaalID = Math.max(0, kanaalID - 1);
-          console.debug(kanaalID);
-          // $().ws.request({ from:'gui', method:'POST', path: `/kanaal(${this.kanaalID})` });
-        }
-        function presetSet (presetID) {
-          // $().messenger.send({ to: [$().client.domain.id], kanaal: this.kanaalID, cam: CCTV.kanalen[this.kanaalID].cameraID, preset: presetID });
-          $().ws.request({ from:'gui', method:'POST', path: `/kanaal(${this.kanaalID})/camera(${$().kanalen[this.kanaalID].cameraID})/preset(${presetID})` });
-        }
-        function btnKeydown (event) {
-          switch (event.key) {
-            case 'ArrowUp': this.camNext(); break;
-            case 'ArrowDown': this.camPrior(); break;
-            case 'ArrowRight': this.kanaalNext(); break;
-            case 'ArrowLeft': this.kanaalPrior(); break;
-            case '1': this.presetSet(0); break;
-            case '2': this.presetSet(1); break;
-            case '3': this.presetSet(2); break;
-            case '4': this.presetSet(3); break;
-            case '5': this.presetSet(4); break;
-            case '6': this.presetSet(5); break;
-            default: return;
+        for (var name in item.properties) {
+          var prop = item.properties[name];
+          if (prop.stereotype === "signalering") {
+            if (item[name]) {
+              item.signals[prop.type]++;
+              if (item[name].value) item.signals[prop.type + '_active']++;
+            }
           }
-          event.preventDefault();
+        }
+        if (item.children) item.children.forEach(sumsignals);
+        if (item.master && item.master.signals) for (var name in item.signals) item.master.signals[name] += item.signals[name];
+        //console.log(item.title, item.signals);
+      })(itemTunnel);
+
+      for (var i = 0, el, c = document.getElementsByClassName('sumitems') ; el = c[i]; i++) {
+        if (!el.items) continue;
+        var signals = {
+          deelsysteem_alarm: 0,
+          deelsysteem_alarm_active: 0,
+          deelsysteem_storing: 0,
+          deelsysteem_storing_active: 0,
+          status_melding: 0,
+          status_melding_active: 0,
         };
-        elButtonpanel.append(
-          $('div').class('row', this.id).attr('state', this.state).attr('opendicht', this.open).append(
-            $('span').class('title').text(this.title),
-            $('button').class('button c l r'),
-            $('span').class('status'),
-            $('span').class('pd'),
-            $('span').class('opendicht'),
-            $('button').class('button rood l'),
-            $('button').class('button down s r').append(
-              $('ul').class('popupselect').append(
-                $('li').text('Rood').on('click', event => {
-                  event.stopPropagation();
-                  this.elPU.parentElement.removeChild(this.elPU);
-                  $().messenger.send({
-                    to: [$().client.domain.id], value: [
-                      { id: 3318023, operations: { Hand_VerkeerslichtenRood: [] } },
-
-                      //{ id: 3375427, operations: { SetStand: ['rood'] } }, // lfv_verkeerslichten_1
-                      //{ id: 3375446, operations: { SetStand: ['rood'] } }, // lfv_verkeerslichten_2
-                      //{ id: 3375454, operations: { SetStand: ['rood'] } }, // lfv_verkeerslichten_3
-                    ]
-                  });
-                }),
-                $('li').text('Gedoofd').on('click', event => {
-                  event.stopPropagation();
-                  this.elPU.parentElement.removeChild(this.elPU);
-                  $().messenger.send({
-                    to: [$().client.domain.id], value: [
-                      { id: 3318023, operations: { Hand_VerkeerslichtenGedoofd: [] } },
-                    ]
-                  });
-                }),
-              )
-            ),
-            $('button').class('button sluit l').append(
-              $('ul').class('popupselect').append(
-                $('li').text('Sluit').on('click', event => {
-                  event.stopPropagation();
-                  item.setVerkeerslichtenHandStandRood();
-                  this.elPU.remove();
-                }),
-                $('li').text('Gedoofd').on('click', event => {
-                  event.stopPropagation();
-                  item.setVerkeerslichtenHandStandGroen();
-                  this.elPU.remove();
-                }),
-              )
-            ),
-            $('button').class('button open r').on('click', event => {
-              item.setVerkeerslichtenHandStandGroen();
-              // VerkeersbuisAfsluiter().Hand_VerkeerslichtenGedoofd();
-            }),
-            $('button').class('button kijk l'),
-            $('button').class('button down s r'),
-            $('button').class('button links l').on('click', camPrior).on('keydown', btnKeydown),
-            $('button').class('button rechts r').on('click', camNext).on('keydown', btnKeydown),
-          )
-        )
-
-        elOverview.append(
-          $('li').class('buis Verkeersbuis')
-          .item(item, 'overview')
-          .attr('doel_stand', '')
-          .append(
-            $('div').append(
-              ((item.schema.gui||{}).overview||[]).map(className => $('div').class(className))
-            ),
-            $('ul').append(
-              item.data.children.map(function detail(item) {
-                return $('li')
-                // .class('overview',item.schemaName)
-                .class(item.schemaName)
-                .append(
-                  $('div'),
-                  $('ul')
-                  .append(
-                    item.data.children.map(detail)
-                  )
-                )
-              }),
-            )
-          )
-        )
-        elDetailContainerChild.append(
-          $('li').class('buis Verkeersbuis')
-          .item(item, 'detail')
-          .attr('doel_stand', '')
-          .append(
-            $('div'),
-            $('ul').append(
-              item.data.children.map(function detail(item) {
-                if (item.schema.gui) console.log('GUI', item.schemaName, item.schema.gui);
-                if (item.schemaName === 'Verkeerslichten') console.log('GUI1', item.schemaName, item);
-                return $('li')
-                .item(item, 'detail')
-                // .class('detail',item.schemaName)
-                .attr('stand', '')
-                .class(item.schemaName)
-                .append(
-                  $('div').append(
-                    ((item.schema.gui||{}).detail||[]).map(className => $('div').class(className))
-                  ),
-                  $('ul')
-                  .append(
-                    item.data.children.map(detail)
-                  )
-                )
-              }),
-            )
-          )
-        )
-      });
+        el.items.forEach(function (item) {
+          for (var name in item.signals) signals[name] += item.signals[name];
+        });
+        for (var name in signals) el.setAttribute(name, signals[name]);
+      }
     }
 
-    // console.log($().authProvider().auth.api_key);
-    if ($().authProvider().auth.api_key) {
-      $().extend({
-        client: { servers: [ { url: "https://rws.aliconnect.nl/api" } ] },
-        ws: { url: "wss://aliconnect.nl:444" },
-      })
-      aim.elemTitle.text('LOADING CONFIGURATION DATA');
-      $().getApi('https://rws.aliconnect.nl/api/').then(event => {
-        $().login().then(event => {
-          $().api('/')
-          .query('request_type', 'getall2')
-          .get()
-          .then(event => init($().body = event.body))
-          //  {
-          //   // console.log(event.body);
-          //   // $().value = event.body.value.map(item => $.Item.get(item));
-          //   // console.debug('UP');
-          //   const items = event.body.value;
-          //   items.forEach(item => item.data.children = items.filter(child => child.data.MasterID === item.data.ID))
-          //   init(items, items.find(item => item.ID == event.body.sub));
-          // });
-        });
-      });
-      //
-      // await $()
-      // .api('/')
-      // .query('request_type', 'data_json')
-      // .get()
-      // .then(event => $().extend(event.body));
-    } else {
-      console.log('DATA');
-      $().extend({
-        client: { servers: [ { url: "http://localhost:9001/api" } ] },
-        ws: { url: "ws://localhost:9001" },
-      })
-      $().getApi('https://rws.aliconnect.nl/api/').then(event => {
-        $().login().then(event => {
-          $('script').parent(document.head).src('data.js').on('load', event => {
-            console.log('DATA LOAD', $().body);
-            $().body.value = $().body.value.map(item => $.Item.get(item));
-            init($().body);
-            // $().value = $().value.map(item => $.Item.get(item));
-            // init();
-          })
-        });
-      });
-    }
+    setInterval(event => $(document.body).attr('blink', aim.blink^= 1), 1000);
+    setInterval(event => aim.timeElem.text(new Date().toLocaleTimeString()), 1000);
+
+    item.elDetail = elDetailContainerChild;
+    item.elOverview = elOverview;
+
+    const tabsLeft = [];
+    items.filter(item => item.schemaName === 'Verkeersbuis').forEach(item => {
+      // (aim.elTabsLeftControlBuis.items = aim.elTabsLeftControlBuis.items || []).push(item);
+        //Gui.createPanelTreeItem('Buis');
+        //Gui.createPanelTreeItem('Verkeer');
+        //Gui.elementSignalCount.push(Gui.elTabsLeftControlBuis);
 
 
-    return;
+      var treeitems = [];
+      tabsLeft.push({
+        name: item.data.Tag.Value,
+        treeitems: 'Buis,Vluchtroute,Tunnel,Verkeer,Detecties,Overig'.split(','),
+        filter: 'HLi,Tunnel'.split(','),
+      })
+      var pdRoodUit = function () { }
+      let kanaalID = 0;
+      function setCam(camID) {
+        const cam = webcam.cams[camID];
+        console.log(camID, webcam.cams, cam);
+        webcam.send('SETWALL', {target: channels[kanaalID].id, cam: cam.cam } );
+      }
+      function camNext () {
+        setCam(channels[kanaalID].camID = Math.min(webcam.cams.length-1, 'camID' in channels[kanaalID] ? channels[kanaalID].camID + 1 : 0));
+        // return;
+        // // $().messenger.send({ to: [$().client.domain.id], kanaal: this.kanaalID, cam: CCTV.kanalen[this.kanaalID].cameraID = Math.min(CCTV.cameras.length - 1, CCTV.kanalen[this.kanaalID].cameraID + 1) });
+        // $().ws.request({
+        // 	from:'gui',
+        // 	method:'POST',
+        // 	path: `/kanaal(${this.kanaalID})/camera(${$().kanalen[this.kanaalID].cameraID = Math.min($().cameras.length - 1, $().kanalen[this.kanaalID].cameraID + 1)})`
+        // });
+      };
+      function camPrior () {
+        setCam(channels[kanaalID].camID = Math.max(0, 'camID' in channels[kanaalID] ? channels[kanaalID].camID - 1 : 0));
+        // const camID = channels[kanaalID].camID = channels[kanaalID].camID ? channels[kanaalID].camID - 1 : 0;
+        // webcam.send('SETWALL', {target: channels[kanaalID].id, cam: cams[camID].cam } );
+        // return;
+        // // $().messenger.send({ to: [$().client.domain.id], kanaal: this.kanaalID, cam: CCTV.kanalen[this.kanaalID].cameraID = Math.max(0, CCTV.kanalen[this.kanaalID].cameraID - 1) });
+        // $().ws.request({ from:'gui', method:'POST', path: `/kanaal(${this.kanaalID})/camera(${$().kanalen[this.kanaalID].cameraID = Math.max(0, $().kanalen[this.kanaalID].cameraID - 1)})` });
+      }
+      function kanaalNext () {
+        kanaalID = Math.min(channels.length, kanaalID + 1);
+        console.debug(kanaalID);
+        // $().ws.request({ from:'gui', method:'POST', path: `/kanaal(${this.kanaalID})` });
+      };
+      function kanaalPrior () {
+        kanaalID = Math.max(0, kanaalID - 1);
+        console.debug(kanaalID);
+        // $().ws.request({ from:'gui', method:'POST', path: `/kanaal(${this.kanaalID})` });
+      }
+      function presetSet (presetID) {
+        // $().messenger.send({ to: [$().client.domain.id], kanaal: this.kanaalID, cam: CCTV.kanalen[this.kanaalID].cameraID, preset: presetID });
+        $().ws.request({ from:'gui', method:'POST', path: `/kanaal(${this.kanaalID})/camera(${$().kanalen[this.kanaalID].cameraID})/preset(${presetID})` });
+      }
+      function btnKeydown (event) {
+        switch (event.key) {
+          case 'ArrowUp': this.camNext(); break;
+          case 'ArrowDown': this.camPrior(); break;
+          case 'ArrowRight': this.kanaalNext(); break;
+          case 'ArrowLeft': this.kanaalPrior(); break;
+          case '1': this.presetSet(0); break;
+          case '2': this.presetSet(1); break;
+          case '3': this.presetSet(2); break;
+          case '4': this.presetSet(3); break;
+          case '5': this.presetSet(4); break;
+          case '6': this.presetSet(5); break;
+          default: return;
+        }
+        event.preventDefault();
+      };
+      elButtonpanel.append(
+        $('div').class('row', this.id).attr('state', this.state).attr('opendicht', this.open).append(
+          $('span').class('title').text(this.title),
+          $('button').class('button c l r'),
+          $('span').class('status'),
+          $('span').class('pd'),
+          $('span').class('opendicht'),
+          $('button').class('button rood l'),
+          $('button').class('button down s r').append(
+            $('ul').class('popupselect').append(
+              $('li').text('Rood').on('click', event => {
+                event.stopPropagation();
+                this.elPU.parentElement.removeChild(this.elPU);
+                $().messenger.send({
+                  to: [$().client.domain.id], value: [
+                    { id: 3318023, operations: { Hand_VerkeerslichtenRood: [] } },
+
+                    //{ id: 3375427, operations: { SetStand: ['rood'] } }, // lfv_verkeerslichten_1
+                    //{ id: 3375446, operations: { SetStand: ['rood'] } }, // lfv_verkeerslichten_2
+                    //{ id: 3375454, operations: { SetStand: ['rood'] } }, // lfv_verkeerslichten_3
+                  ]
+                });
+              }),
+              $('li').text('Gedoofd').on('click', event => {
+                event.stopPropagation();
+                this.elPU.parentElement.removeChild(this.elPU);
+                $().messenger.send({
+                  to: [$().client.domain.id], value: [
+                    { id: 3318023, operations: { Hand_VerkeerslichtenGedoofd: [] } },
+                  ]
+                });
+              }),
+            )
+          ),
+          $('button').class('button sluit l').append(
+            $('ul').class('popupselect').append(
+              $('li').text('Sluit').on('click', event => {
+                event.stopPropagation();
+                item.setVerkeerslichtenHandStandRood();
+                this.elPU.remove();
+              }),
+              $('li').text('Gedoofd').on('click', event => {
+                event.stopPropagation();
+                item.setVerkeerslichtenHandStandGroen();
+                this.elPU.remove();
+              }),
+            )
+          ),
+          $('button').class('button open r').on('click', event => {
+            item.setVerkeerslichtenHandStandGroen();
+            // VerkeersbuisAfsluiter().Hand_VerkeerslichtenGedoofd();
+          }),
+          $('button').class('button kijk l'),
+          $('button').class('button down s r'),
+          $('button').class('button links l').on('click', camPrior).on('keydown', btnKeydown),
+          $('button').class('button rechts r').on('click', camNext).on('keydown', btnKeydown),
+        )
+      )
+
+      elOverview.append(
+        $('li').class('buis').append(
+          $('div'),
+          $('ul').append(
+            item.data.children.map(item => $('li').class(item.schemaName).append(
+              $('div')
+            ))
+          )
+        )
+      )
+      elDetailContainerChild.append(
+        $('li').class('buis').append(
+          $('div'),
+          $('ul').append(
+            item.data.children.map(item => $('li').class(item.schemaName).append(
+              $('div')
+            ))
+          )
+        )
+      )
+    });
 
     (function build(item, level) {
       // console.log(new Date().valueOf()-st, `step${i++} ${level}`);
@@ -1070,9 +1012,6 @@
 
       const children = item.data.children;
       // console.log('children', children);
-
-      console.log('GUI', item.schema.gui);
-
       if (children) {
         item.elDetailUL = $('ul').parent(item.elDetail);
         // console.log(item.Children);

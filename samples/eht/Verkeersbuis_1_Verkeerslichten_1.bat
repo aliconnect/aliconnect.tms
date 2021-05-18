@@ -1,0 +1,4 @@
+@call start Verkeerslichten 9004^
+ --config-load=data^
+ --ws-url=ws://localhost:9003^
+ --authProvider-auth-api_key=eyJ0eXAiOiJKV1QiLCJhbGciOiJzaGEyNTYifQ.eyJpc3MiOiJyd3MuYWxpY29ubmVjdC5ubCIsInNjb3BlIjoid2Vic2l0ZS5yZWFkIG5hbWUgZW1haWwiLCJzdWIiOiIzNDQzNzg3IiwiYXVkIjoiMzY2NjEzNCIsImV4cCI6MTYwNTg2MjI1MSwiaWF0IjoxNjA1Nzc1ODUxfQ.wESRRvjvb88XzZBwjlWwn1KhBwjBTTXuPCAR6_OfQuw

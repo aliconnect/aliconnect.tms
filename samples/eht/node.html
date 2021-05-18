@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<link  href="../../../../api/src/css/web.css" rel="stylesheet"/>
+<script src="../../../../api/src/js/aim.js"></script>
+<script src="../../../../api/src/js/web.js"></script>
+</head>
+<body>
+<pre id="console"></pre>
+<script>
+(async function () {
+  aim().extend({
+    authProvider: {
+
+    },
+    ws: {
+      url: "wss://aliconnect.nl:444"
+    },
+    client: {
+      servers: [
+        {
+          url: "https://rws.aliconnect.nl/tms/api"
+        }
+      ]
+    }
+  })
+  await aim().api('/').query('request_type', 'data_json').get().then(event => aim().extend(event.body))
+  let items = aim().value;
+  let item = aim.get(aim().authProvider().sub);
+  let schemaName = item.schemaName;
+  if (schemaName === 'System') {
+    schemaName = 'Tunnel';
+  }
+  aim('script').parent(document.head).src(`../../lib/${schemaName}/index.js`)
+  console.log(aim.get(aim().authProvider().sub))
+  aim().on('ready', async event => {
+  })
+})()
+</script>
+
+</body>
+</html>

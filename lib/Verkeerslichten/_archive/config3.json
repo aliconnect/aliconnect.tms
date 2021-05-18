@@ -1,0 +1,21 @@
+{
+  "config": {
+    "debug": true,
+    "oauth2": {
+      "url": "https://login.aliconnect.nl/api/oauth2"
+    },
+    "http": {
+      "port": 9001
+    },
+    "aim": {
+      "websocket": {
+        "servers": [
+          {"url": "wss://aliconnect.nl:444"}
+        ]
+      },
+      "servers": [
+        {"url": "https://aliconnect.nl/api"}
+      ]
+    }
+  }
+}

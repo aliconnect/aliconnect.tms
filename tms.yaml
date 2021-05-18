@@ -1,0 +1,55 @@
+# RWS TMS
+info:
+  title: RWS TMS
+  description: RWS Tunnel Management System
+  contact:
+    email: max.van.kampen@alicon.nl
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+web:
+  css:
+    rules:
+      .row.top.bar: |
+        background-color: #F9E11E;
+        color: #154273;
+      .gui div[class^=Verkeerslicht]: |
+        display: inline-block;
+        background: rgb(0, 0, 0);
+        border-radius: 200px;
+        padding: 2px;
+        border-width: 2px;
+        border-style: solid;
+        border-color: rgb(204, 204, 204);
+        border-image: initial;
+        top:-23px;
+        left:-11px;
+      .gui div[class^=Verkeerslicht] > div: |
+        border-radius: 50px;
+        background: #666;
+        margin: 2px;
+        width: 10px;
+        height: 10px;
+      .gui .global div[class^=Verkeerslicht]: |
+        top:-17px;
+        left:-9px;
+      .gui .global div[class^=Verkeerslicht] > div: |
+        width: 6px;
+        height: 6px;
+      .gui div[class^=Verkeerslicht][stand='rood'] .rood: |
+        background: rgb(255,0,0);
+      .gui div[class^=Verkeerslicht][stand='geel_knipperen'] .geel, .gui div[class^=Verkeerslicht][stand='geel'] .geel: |
+        background: rgb(255,255,0);
+      .gui div[class^=Verkeerslicht][stand='groen'] .groen: |
+        background: rgb(0,255,0);
+components:
+  schemas:
+    System: &System
+      security: *basic_security
+      treeTitleAttributeName: Product
+      header:
+      - [Brand,Product,Model,Type,Serie,Version,Shape,Material]
+      - []
+      - [Description]
+      properties: &SystemProperties

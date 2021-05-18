@@ -1,0 +1,26 @@
+{
+  "name": "@aliconnect/lts",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aliconnect/lts.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aliconnect/lts.git"
+  },
+  "author": "Max van Kampen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aliconnect/lts/issues"
+  },
+  "homepage": "https://github.com/aliconnect/lts#readme",
+  "dependencies": {
+    "@aliconnect/api": "3.0.2"
+  }
+}

@@ -608,9 +608,9 @@ margin-right: 5px;
 }
 .gui .detail li>div {
   display:inline-block;
-  /* width:20px; */
-  /* height:20px; */
-  /* background: 'red' */
+  width:20px;
+  height:20px;
+  background: 'red'
 }
 
 .detail {
@@ -1098,7 +1098,4 @@ body[blink="0"] .signalrows li[value="1"] > .type {
 }
 .panelright {
 	width:1000px;
-}
-.panelbottom {
-  height:100px;
 }
