@@ -1,6 +1,6 @@
 @font-face {
 	font-family: 'TmsIcon';
-	src: url('fonts/tmsicon.woff') format('woff'), url('fonts/tmsicon.ttf') format('truetype');
+	src: url('fonts/tmsicon.ttf') format('truetype'), url('fonts/tmsicon.woff') format('woff');
 	font-weight: normal;
 	font-style: normal;
 }

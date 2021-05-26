@@ -255,11 +255,17 @@ console.log('GUI');
 
   $()
   .on('load', async event => {
-    console.log('JA');
     const auth = $().authProvider({});
     const accessToken = auth.getAccessToken();
     if (document.location.port>8000) {
-      $('script').parent(document.head).src('data.js')
+
+      console.log('LOCAL');
+
+      await $.script('data.js');
+      console.log('LOCAL2', $().body);
+      return;
+      $().extend($().body);
+      // $('script').parent(document.head).src('data.js')
       $().extend({
         ws: {
           url: "wss://localhost:9001"
@@ -289,6 +295,7 @@ console.log('GUI');
 
   })
   .on('ready', async event => {
+    console.log('READY');
     // await $().api('/').get().then(event => $().extend(event.body));
     const vmsOptions = {wall:'1', control:1};
     // var vmsOptions = {wall:'1'};
@@ -610,17 +617,19 @@ console.log('GUI');
       $('div').id("popupselect")
     )
 
-    const topId = $().authProvider().sub;// 2804342;
-    console.log('topId', topId);
-    if (!topId) return;
 
-    if ($().value) {
-      $().value = $().value.map(item => $(item));
+    if ($().body) {
+      var topId = $().body.sub;
+      $().value = $().body.value.map(item => $(item));
     } else {
       aim.elemTitle.text('LOADING CONFIGURATION DATA');
+      var topId = $().authProvider().sub;// 2804342;
+      // await $().login();
+      if (!topId) return;
       await $().api('/').query('request_type', 'build_data').query('id', topId).get().then(event => $().extend(event.body));
     }
 
+    // console.log('topId', $().body, topId);
 
     let items = $().value;
     items.forEach(item => item.data.children = items.filter(child => child.data.MasterID === item.data.ID && child.data.ID !== item.data.ID))
@@ -635,7 +644,7 @@ console.log('GUI');
 
     const itemTunnel = item;
 
-    aim.elemTitle.text($().info.title + ' ' + $().info.description);
+    aim.elemTitle.text($().info ? $().info.title + ' ' + $().info.description : '');
 
     aim.buttonVerkeer.elem.click()
     Object.entries(menu).forEach(([name1,topmenuitem]) => $('li').parent(aim.elPanelTree).append(
@@ -972,10 +981,13 @@ console.log('GUI');
       )
     });
 
+
+    console.log($().schemas());
+
     (function build(item, level) {
       // if (item.ID === 10) return;
       // console.log(new Date().valueOf()-st, `step${i++} ${level}`);
-      // console.log('build', item.tag);
+      console.log('build', level, item.tag, item.data.schemaPath);
       if (item.schemaName === 'Weg') {
         //Gui.createPanelTreeItem('Vluchtroute');
         Gui.elTabsBottomControlWeg = elTabsBottomControl.createElement('A', '', item.name, { onclick: tabclick, elTab: elTabSystem });
