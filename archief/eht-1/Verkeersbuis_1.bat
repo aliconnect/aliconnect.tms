@@ -1,0 +1,4 @@
+@call start Verkeersbuis 9003^
+ --config-load=data^
+ --ws-url=ws://localhost:9001^
+ --authProvider-auth-api_key=eyJ0eXAiOiJKV1QiLCJhbGciOiJzaGEyNTYifQ.eyJpc3MiOiJyd3MuYWxpY29ubmVjdC5ubCIsInNjb3BlIjoid2Vic2l0ZS5yZWFkIG5hbWUgZW1haWwiLCJzdWIiOiIzNDQzNzc5IiwiYXVkIjoiMzY2NjEzNCIsImV4cCI6MTYwNTk2MjM3NywiaWF0IjoxNjA1ODc1OTc3fQ.qMBsYkpK0u1n8xLgiE_bzoQSAyEb3J6jMUA978-v0fs

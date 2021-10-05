@@ -1,0 +1,568 @@
+.overview {
+	padding:20px 0;
+	user-select: none;
+}
+.detail {
+	padding:80px 0;
+	user-select: none;
+}
+.overview LI[class^="Verkeersbuis"] {
+	height: 40px;
+	margin: 20px 0;
+	background:rgba(255,0,0,0.05);
+}
+.detail LI[class^="Verkeersbuis"] {
+	height: 200px;
+	background:rgba(255,0,0,0.05);
+}
+
+.overview LI[class^="Verkeerslicht"] {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	border-radius: 20px;
+	background: blue;
+}
+.detail LI[class^="Verkeerslicht"] {
+	display: inline-block;
+}
+.detail LI[class^="Verkeerslicht"] > DIV {
+	border-radius: 10px;
+	background-color: black;
+	padding: 2px;
+}
+.detail LI[class^="Verkeerslicht"] .storing {
+	left: -3px !important;
+	right: -2px !important;
+}
+.detail LI[class^="Verkeerslicht"] > DIV > DIV {
+	border-radius: 10px;
+	width: 8px;
+	height: 8px;
+	margin: auto;
+	background-color: #111;
+}
+
+
+.detail LI[class^="Verkeerslichten("][stand="rood"]>.rood {
+	background-color: rgb(255,30,30);
+	-webkit-box-shadow: 0px 0px 5px 2px rgb(255,0,0);
+	-moz-box-shadow: 0px 0px 5px 2px rgb(255,0,0);
+	box-shadow: 0px 0px 5px 2px rgb(255,0,0);
+}
+.detail LI[class^="Verkeerslichten("][stand="geel_knipperen"]>.geel {
+	background-color: rgb(252,178,0);
+	-webkit-box-shadow: 0px 0px 5px 2px rgb(252,178,0);
+	-moz-box-shadow: 0px 0px 5px 2px rgb(252,178,0);
+	box-shadow: 0px 0px 5px 2px rgb(252,178,0);
+}
+.detail LI[class^="Verkeerslichten("][stand="groen"]>.groen {
+	background-color: rgb(0,206,0);
+	-webkit-box-shadow: 0px 0px 5px 2px rgb(0,206,0);
+	-moz-box-shadow: 0px 0px 5px 2px rgb(0,206,0);
+	box-shadow: 0px 0px 5px 2px rgb(0,206,0);
+}
+.detail LI[class^="Verkeerslichten("]>ul {
+	position:absolute;
+	left: 300%;
+	top:0;
+	white-space: nowrap;
+}
+
+.detail LI[class^="bf_Verkeerslichten_Verkeersbuis("] {
+	display: none;
+}
+
+
+
+.detail LI[class^="Verkeerslicht("][stand="rood"]>.rood {
+	background-color: rgb(255,30,30);
+	-webkit-box-shadow: 0px 0px 5px 2px rgb(255,0,0);
+	-moz-box-shadow: 0px 0px 5px 2px rgb(255,0,0);
+	box-shadow: 0px 0px 5px 2px rgb(255,0,0);
+}
+.detail LI[class^="Verkeerslicht("][stand="geel_knipperen"]>.geel,
+.detail LI[class^="Verkeerslicht("][stand="geel"]>.geel {
+	background-color: rgb(252,178,0);
+	-webkit-box-shadow: 0px 0px 5px 2px rgb(252,178,0);
+	-moz-box-shadow: 0px 0px 5px 2px rgb(252,178,0);
+	box-shadow: 0px 0px 5px 2px rgb(252,178,0);
+}
+.detail LI[class^="Verkeerslicht("][stand="groen"]>.groen {
+	background-color: rgb(0,206,0);
+	-webkit-box-shadow: 0px 0px 5px 2px rgb(0,206,0);
+	-moz-box-shadow: 0px 0px 5px 2px rgb(0,206,0);
+	box-shadow: 0px 0px 5px 2px rgb(0,206,0);
+}
+
+
+
+
+
+
+
+.detail LI[class^="Verkeerslicht"][lichtStatus="licht_disabled"] .disable {
+	visibility: visible;
+}
+
+.detail LI[class^="Verlichting_Verkeersbuis"] > DIV::before {
+	content: '\e350';
+}
+.detail LI[class^="Verlichting_Verkeersbuis"][stand='aan'] > DIV::before {
+	color: orange;
+	content: '\e351';
+}
+.detail LI[class^="Verlichting_Verkeersbuis"][stand='aan'] > DIV::after {
+	content: '\e350';
+}
+
+.detail LI[class^="SOSSectie"] > DIV::before {
+	content: '\e352';
+}
+.detail LI[class^="SOSSectie"][signal] > DIV,
+.detail LI[class^="SOSSectie"][disable] > DIV,
+.detail LI[class^="SOSSectie"][hand] > DIV,
+.detail LI[class^="SOSSectie"][storing] > DIV,
+.detail LI[class^="SOSSectie"][nb] > DIV,
+.detail LI[class^="SOSSectie"][bb] > DIV {
+	width: 27px;
+	background: #4C575B;
+	border-radius: 20px;
+	border: solid 2px #23353D;
+	color: #B7BCBD;
+	font-size: 8pt;
+	text-align: center;
+	line-height: 17px;
+}
+.detail LI[class^="SOSSectie"][signal] > DIV::before,
+.detail LI[class^="SOSSectie"][disable] > DIV::before,
+.detail LI[class^="SOSSectie"][hand] > DIV::before,
+.detail LI[class^="SOSSectie"][storing] > DIV::before,
+.detail LI[class^="SOSSectie"][nb] > DIV::before,
+.detail LI[class^="SOSSectie"][bb] > DIV::before {
+	font-family: Arial;
+	content: 'SOS';
+}
+.detail LI[class^="SOSSectie"][signal] > DIV {
+	border-color: #3c84d3;
+	background-color: #4CBAF1;
+	color: black;
+}
+.detail LI[class^="SOSSectie"] > DIV[sel] {
+	border-color: #007AA3;
+	color: black;
+	background-color: #00BEFD;
+}
+
+.detail LI[class^="Camera"] > DIV {
+	z-index: 0;
+	color: #B7BCBD;
+	font-size: 12px;
+	font-family: Arial !important;
+	width: 40px;
+	text-align: right;
+	padding-right: 4px;
+}
+.detail LI[class^="Camera"] > DIV:before {
+	content: '123';
+}
+.detail LI[class^="Camera"] .lens {
+	z-index: -1;
+}
+.detail LI[class^="Camera"] .lens::before {
+	content: '';
+	position: absolute;
+	width: 28px;
+	font-family: Arial;
+	top: -15px;
+	right: -4px;
+	font-size: 10px;
+	border-top: solid #23353D 16px;
+	border-left: solid transparent 16px;
+}
+.detail LI[class^="Camera"] .lens::after {
+	content: '';
+	position: absolute;
+	width: 25px;
+	font-family: Arial;
+	top: -13px;
+	right: -2px;
+	font-size: 10px;
+	border-top: solid #4C575B 12px;
+	border-left: solid transparent 12px;
+}
+.detail LI[class^="Camera"][status='active'] > DIV {
+	color: black;
+}
+.detail LI[class^="Camera"][status='active'] .lens::before {
+	border-top-color: black;
+}
+.detail LI[class^="Camera"][status='active'] .lens::after {
+	border-top-color: white;
+}
+.detail LI[class^="Camera"][signal] .lens::before {
+	border-top-color: #4CBAF1;
+}
+
+/*LI[class^="Afsluitboom"] {
+width: 20px;
+height: 20px;
+background: brown;
+border-radius: 20px;
+}*/
+.detail LI[class^="Afsluitboom"] > DIV {
+	border: solid 2px black;
+}
+.detail LI[class^="Afsluitboom"] .hand {
+	left: -8px;
+	right: auto;
+	width: 3px;
+	top: -2px;
+	bottom: -2px;
+	height: auto;
+}
+.detail LI[class^="Afsluitboom"] .storing {
+	right: -8px;
+	left: auto;
+	width: 3px;
+	top: -2px;
+	bottom: -2px;
+	height: auto;
+}
+.detail LI[class^="Afsluitboom"][signal] > DIV {
+	border-color: aqua;
+}
+.detail LI[class^="Afsluitboom"] > DIV > .boom {
+	width: 8px;
+	height: 140px;
+	background-image: url('../img/bf_afsluitboom_bg2.png');
+	transition: height linear 1s;
+}
+.detail LI[class^="Afsluitboom"] > DIV > .basis {
+	width: 8px;
+	height: 20px;
+	background-image: url('../img/bf_afsluitboom_bg1.png');
+	transition: height linear 1s;
+}
+.detail LI[class^="Afsluitboom"][stand="op"] > DIV > .boom {
+	display: none;
+}
+.detail LI[class^="Afsluitboom"][stand="op_verlaten"] > DIV > .boom {
+	opacity: 0.5;
+}
+.overview LI[class^="Afsluitboom"][stand="neer"]::after {
+	height: 40px;
+	-webkit-box-shadow: 0px 0px 5px 2px rgba(254,254,254,.5);
+	-moz-box-shadow: 0px 0px 5px 2px rgba(254,254,254,.5);
+	box-shadow: 0px 0px 5px 2px rgba(254,254,254,.5);
+}
+.detail LI[class^="Afsluitboom"][stand="op_verlaten"]::after {
+	height: 140px;
+	opacity: 0.5;
+}
+.overview LI[class^="Afsluitboom"][stand="op_verlaten"]::after {
+	height: 40px;
+	opacity: 0.5;
+}
+.detail LI[class^="HoogteDetector"] > DIV {
+	width: 8px;
+	border: solid 1px #1F353D;
+	border-radius: 10px;
+	height: 100px;
+	background: #7D8689;
+	color: #CACFD0;
+	font-size: 8px;
+	text-align: center;
+	padding-top: 2px;
+}
+.detail LI[class^="HoogteDetector"] > DIV::before {
+	font-family: Arial;
+	content: 'H';
+}
+/*LI[class^="HoogteDetector"][hoogte_overschrijding] {
+background: #00BBFF;
+color: gray;
+-webkit-box-shadow: 0px 0px 5px 2px rgba(254,254,254,.5);
+-moz-box-shadow: 0px 0px 5px 2px rgba(254,254,254,.5);
+box-shadow: 0px 0px 5px 2px rgba(254,254,254,.5);
+}*/
+
+.detail LI[class^="HoogteDetectie"][signal] > DIV {
+	border-color: gray;
+	color: gray;
+	background: #00BBFF;
+}
+.detail LI[class^="Hulppost"] > DIV {
+	border-radius: 10px;
+	border: solid 1px transparent;
+	background-color: rgb(40,40,40);
+	height: 14px;
+}
+.detail LI[class^="Hulppost"] > DIV > DIV {
+	font-family: Arial;
+	display: inline-block;
+	border-radius: 10px;
+	border: solid 1px #23353D;
+	background-color: #23353D;
+	background-color: rgb(80,80,80);
+	width: 10px;
+	height: 10px;
+	text-align: center;
+	vertical-align: top;
+	font-size: 8px;
+	line-height: 10px;
+	white-space: nowrap;
+	margin: 1px;
+}
+.detail LI[class^="Hulppost"][signal] > DIV {
+	border-color: #4CBAF1;
+}
+/*#detail LI[class^="Hulppost"] > ul {position:relative;vertical-align:top;}*/
+/*LI[class^="Hulppost"] > DIV > span > span {
+display: inline-block;
+vertical-align: bottom;
+background: #4A575B;
+border: solid 1px #23353D;
+width: 10px;
+height: 10px;
+border-radius: 10px;
+text-align: center;
+}*/
+.detail LI[class^="Hulppost"] .blusapparaat::after {
+	content: 'B';
+}
+.detail LI[class^="Hulppost"] .slanghaspel::after {
+	content: 'H';
+}
+/*#detail LI[class^="Hulppost"][deur_open='ja'] > span {background:red;}
+#detail LI[class^="Hulppost"][blusapparaat_in_houder='ja'] .blusapparaat {background:red;}
+#detail LI[class^="Hulppost"][spuitmond_slanghaspel_in_houder='ja'] .slanghaspel {background:red;}*/
+
+body:not([off]) .detail LI[class^="Hulppost"][Alarm_HulppostDeurOpen="0"],
+.detail LI[class^="Hulppost"][Alarm_HulppostDeurOpen="1"]::after {
+	content: '';
+	display: inline-block;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	left: -2px;
+	top: -2px;
+	border-radius: 10px;
+	border: solid 2px #4CBAF1;
+	-webkit-box-shadow: 0px 0px 5px 2px rgba(254,254,254,.5);
+	-moz-box-shadow: 0px 0px 5px 2px rgba(254,254,254,.5);
+	box-shadow: 0px 0px 5px 2px rgba(254,254,254,.5);
+}
+body:not([off]) .detail LI[class^="Hulppost"][Alarm_HulppostDeurOpen="1"][bev='0']::after {
+	visibility: hidden;
+}
+body:not([off]) .detail LI[class^="Hulppost"][Alarm_BlusapparaatUitgenomen="0"] .blusapparaat,
+.detail LI[class^="Hulppost"][Alarm_BlusapparaatUitgenomen="1"] .blusapparaat {
+	border-color: #0078A5;
+	background-color: #4CBAF1;
+	color: black;
+	-webkit-box-shadow: 0px 0px 5px 2px rgba(254,254,254,.5);
+	-moz-box-shadow: 0px 0px 5px 2px rgba(254,254,254,.5);
+	box-shadow: 0px 0px 5px 2px rgba(254,254,254,.5);
+}
+body:not([off]) .detail LI[class^="Hulppost"][Alarm_BlusapparaatUitgenomen="1"][bev='0'] .blusapparaat {
+	background: #4A575B;
+	color: white;
+}
+body:not([off]) .detail LI[class^="Hulppost"][alarm_brandslanghaspeluithoudergenomen="0"] .slanghaspel,
+.detail LI[class^="Hulppost"][Alarm_BrandslanghaspelUitHouderGenomen="1"] .slanghaspel {
+	border-color: #0078A5;
+	background-color: #4CBAF1;
+	color: black;
+	-webkit-box-shadow: 0px 0px 5px 2px rgba(254,254,254,.5);
+	-moz-box-shadow: 0px 0px 5px 2px rgba(254,254,254,.5);
+	box-shadow: 0px 0px 5px 2px rgba(254,254,254,.5);
+}
+body:not([off]) .detail LI[class^="Hulppost"][Alarm_BrandslanghaspelUitHouderGenomen="1"][bev='0'] .slanghaspel {
+	background: #4A575B;
+	color: white;
+}
+.detail LI[class^="Hulppost"][Alarm_HulppostDeurOpen],
+.detail LI[class^="Hulppost"][Alarm_BrandslanghaspelUitHouderGenomen],
+.detail LI[class^="Hulppost"][Alarm_BlusapparaatUitgenomen] {
+	display: inline-block;
+	background: #4CBAF1;
+	border: solid 1px #9BE1F9;
+	width: 8px;
+	height: 8px;
+	border-radius: 10px;
+	-webkit-box-shadow: 0px 0px 5px 2px rgba(254,254,254,.5);
+	-moz-box-shadow: 0px 0px 5px 2px rgba(254,254,254,.5);
+	box-shadow: 0px 0px 5px 2px rgba(254,254,254,.5);
+}
+body:not([off]) .detail LI[class^="Hulppost"][Alarm_HulppostDeurOpen][bev='0'],
+body:not([off]) .detail LI[class^="Hulppost"][Alarm_BrandslanghaspelUitHouderGenomen][bev='0'],
+body:not([off]) .detail LI[class^="Hulppost"][Alarm_BlusapparaatUitgenomen][bev='0'] {
+	background: #CCC;
+}
+body[off] .detail LI[class^="Hulppost"][Alarm_HulppostDeurOpen="0"],
+body[off] .detail LI[class^="Hulppost"][Alarm_BrandslanghaspelUitHouderGenomen="0"],
+body[off] .detail LI[class^="Hulppost"][Alarm_BlusapparaatUitgenomen="0"] {
+	background: #949FA2;
+	z-index: 2;
+}
+
+.detail LI[class^="Omroepsectie"] {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	background: no-repeat center center url(image/sym/speaker_aan.png);
+}
+.detail LI[class^="Omroepsectie"][speaker] > DIV::before {
+	content: '\e354';
+}
+.detail LI[class^="Omroepsectie"][speaker] > DIV::after {
+	content: '\e355';
+}
+.detail LI[class^="Omroepsectie"][micro] > DIV::before {
+	content: '\e356';
+}
+.detail LI[class^="Omroepsectie"][micro] > DIV::before {
+	content: '\e357';
+}
+
+.detail LI[class^="Signaalgever"][stand="aan"] > DIV {
+	width: 14px;
+	height: 14px;
+	background-color: black;
+}
+.detail LI[class^="Signaalgever"][stand="30"] > DIV::before {
+	content: attr(stand);
+	color: #D09116;
+}
+.detail LI[class^="Signaalgever"][stand="50"] > DIV::before {
+	content: attr(stand);
+	color: red;
+}
+.detail LI[class^="Signaalgever"][stand="vrijgave"] > DIV::before {
+	content: '\e358';
+	color: #F3ED50;
+}
+.detail LI[class^="Signaalgever"][stand="links"] > DIV::before {
+	content: '\e359';
+	color: #F3ED50;
+}
+.detail LI[class^="Signaalgever"][stand="rechts"] > DIV::before {
+	content: '\e35a';
+	color: #F3ED50;
+}
+.detail LI[class^="Signaalgever"][stand="omhoog"] > DIV::before {
+	content: '\e35b';
+	color: #F3ED50;
+}
+.detail LI[class^="Signaalgever"][stand="omlaag"] > DIV::before {
+	content: '\e35c';
+	color: #F3ED50;
+}
+.detail LI[class^="Signaalgever"][stand="kruis"] > DIV::before {
+	content: '\e35d';
+	color: #F3ED50;
+}
+
+.detail LI[class^="NoodtelefoonToestel"] > DIV {
+}
+
+.detail LI[class^="VerkeersbuisLangsventilatie"][links] > DIV {
+}
+.detail LI[class^="VerkeersbuisLangsventilatie"] > DIV::before {
+	font-family: Arial;
+	content: attr(sectie);
+}
+.detail LI[class^="VerkeersbuisLangsventilatie"] > DIV > .symbol::before {
+	margin: 0 5px;
+	font-size: 10pt;
+}
+.detail LI[class^="VerkeersbuisLangsventilatie"] > DIV[dir="links"] > .symbol::before {
+	content: "\e35e";
+}
+.detail LI[class^="VerkeersbuisLangsventilatie"] > DIV[dir="rechts"] > .symbol::before {
+	content: "\e35f";
+}
+.detail LI[class^="VerkeersbuisLangsventilatie"] > DIV::after {
+	font-family: Arial;
+	position: relative !important;
+	content: attr(stand);
+}
+.detail LI[class^="VerkeersbuisLangsventilatie"][aan] > DIV {
+	color: white;
+}
+.detail LI[class^="VerkeersbuisLangsventilatie"][uit] > DIV {
+	color: gray;
+}
+.detail LI[class^="VerkeersbuisLangsventilatie"][uit] > DIV > .symbol {
+	color: #ccc;
+}
+
+.detail LI[class^="LuchtkwaliteitsmetingVerkeersbuis"] > DIV::before {
+	content: "\e360";
+}
+.detail LI[class^="LuchtkwaliteitsmetingVerkeersbuis"] > DIV::before {
+	content: "\e360";
+}
+
+.detail LI[class^="Vluchtdeur"] {
+	border-radius: 10px;
+	border: solid 1px rgb(40,40,40);
+	background-color: rgb(80,80,80);
+	line-height: 14px;
+	height: 14px;
+	width: 40px;
+	font-size: 10px;
+	text-align: center;
+}
+.detail LI[class^="Vluchtdeur"]::before {
+	font-family: TmsIcon;
+	content: "\e361";
+}
+.detail LI[class^="Vluchtdeur"][status='lock']::after {
+	font-family: TmsIcon;
+	content: "\e362" attr(nr);
+}
+.detail LI[class^="Vluchtdeur"][status='key']::after {
+	font-family: TmsIcon;
+	content: "\e363" attr(nr);
+}
+.detail LI[class^="Vluchtdeur"][status='boven']::after {
+	font-family: TmsIcon;
+	content: "\e364" attr(nr);
+}
+.detail LI[class^="Vluchtdeur"][status='onder']::after {
+	font-family: TmsIcon;
+	content: "\e365" attr(nr);
+}
+.detail LI[class^="Vluchtdeur"][signalering] {
+	border-color: #4CBAF1;
+}
+.detail LI[class^="Vluchtdeur"][alarm_vluchtactief]::before,
+.detail LI[class^="Vluchtdeur"][alarm_vluchtdeur]::before {
+	color: red;
+}
+.detail LI[class^="Vluchtdeur"][alarm_vluchtactief]::after {
+	font-family: TmsIcon;
+	content: "\e363" attr(nr);
+	color: orange;
+}
+
+.detail LI[class^="Overdruk"]::before {
+	content: "\e366";
+}
+
+.detail LI[class^="DynVluchtInd"][links]::before {
+	content: "\e367";
+}
+.detail LI[class^="DynVluchtInd"][rechts]::before {
+	content: "\e368";
+}
+
+.detail LI[class^="Bluswater"]::before {
+	content: "\e369";
+}
+
+.detail LI[class^="Pomp"]::before {
+	content: "\e36a";
+}

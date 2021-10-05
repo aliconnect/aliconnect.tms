@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html class="app" dark="1">
+<head>
+	<title>Object Manager</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="manifest" href="/manifest.json" crossorigin="anonymous">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-title" content="Aliconnect">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<link rel='apple-touch-icon' href='/img/logo/favicon-76x76.png' />
+	<link rel='apple-touch-icon' sizes='76x76' href='/img/logo/favicon-76x76.png' />
+	<link rel='apple-touch-icon' sizes='120x120' href='/img/logo/favicon-120x120.png' />
+	<link rel='apple-touch-icon' sizes='152x152' href='/img/logo/favicon-152x152.png' />
+	<link rel='apple-touch-icon' sizes='180x180' href='/img/logo/favicon-180x180.png' />
+	<link rel='apple-touch-icon' sizes='167x167' href='/img/logo/favicon-167x167.png' />
+	<link rel='apple-touch-startup-image' href='/img/logo/favicon-920x680.png' />
+
+	<!-- <link rel="stylesheet" href="https://aliconnect.nl/lib/css/aims.css" /> -->
+	<!-- <link rel="stylesheet" href="https://aliconnect.nl/lib/css/aim.css" /> -->
+	<!-- <link rel="stylesheet" href="/api/css/document.css" /> -->
+	<!-- <link rel="stylesheet" href="https://aliconnect.nl/lib/css/doc.css" /> -->
+	<!-- <link rel="stylesheet" href="https://aliconnect.nl/lib/css/om.css" /> -->
+	<!-- <link rel="stylesheet" href="https://aliconnect.nl/lib/css/calendar.css" /> -->
+	<!-- <link rel="stylesheet" href="https://aliconnect.nl/lib/css/ganth.css" /> -->
+	<!-- <link rel="stylesheet" href="https://aliconnect.nl/lib/css/theme/aliconnect.css" /> -->
+	<!-- <script type="text/javascript" charset="UTF-8" src="/lib/js/lib/jquery.js"></script> -->
+
+	<link rel="stylesheet" href="/lib/css/aim.css" />
+	<link rel="stylesheet" href="/lib/css/icon.css" />
+	<!-- <script type="text/javascript" charset="UTF-8" src="/lib/js/ckeditor4/ckeditor.js"></script> -->
+	<script type="text/javascript" charset="UTF-8" src="https://aliconnect.nl/lib/js/lib/jszip.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="https://aliconnect.nl/lib/js/lib/xlsx.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="https://aliconnect.nl/lib/js/lib/FileSaver.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="https://aliconnect.nl/lib/js/lib/crypto-js.js"></script>
+
+	<!-- <script type="text/javascript" charset="UTF-8" src="/lib/js/def.js"></script> -->
+	<script type="text/javascript" charset="UTF-8" src="https://rws.aliconnect.nl/tms/a2m/api/js"></script>
+	<script type="text/javascript" charset="UTF-8" src="/lib/js/aim.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="/lib/js/app.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="/lib/js/om.js"></script>
+	<!-- <script type="text/javascript" charset="UTF-8" src="/lib/js/lang/en.js"></script> -->
+	<script type="text/javascript" charset="UTF-8" src="/js/operations.js"></script>
+
+	<!-- <script type="text/javascript" charset="UTF-8" src="/lib/js/api.js"></script> -->
+
+	<!-- <script type="text/javascript" charset="UTF-8" src="/api/js/def/aim.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="/api/js/def/web.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="/api/js/def/shop.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="/api/js/def/crm.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="/api/js/def/mse.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="/api/js/def/se.js"></script> -->
+
+
+	<!-- <script type="text/javascript" src="/api/inc/yaml.js/dist/yaml.debug.js"></script> -->
+
+
+	<!-- <link href="/api/js/lib/jsoneditor/jsoneditor.css" rel="stylesheet" type="text/css">
+	<script src="/api/js/lib/jsoneditor/jsoneditor-minimalist.js"></script> -->
+
+
+	<script type="text/javascript" charset="UTF-8" src="https://apis.google.com/js/platform.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKNir6jia2uSgmEoLFvrbcMztx-ao_Oys&libraries=places&callback=aim.Maps.init" defer async></script>
+</head>
+<body class="row aim om bg">
+	<!-- <div id="ckeTop" style="display:none;"></div> -->
+	<div id="navtop" class="row top bar topbtns btnbar noselect np"></div>
+	<!-- <div id="rowmain" class="row aco"> -->
+	<nav id="navleft" class="col aco noselect np shdw"></nav>
+	<div class="seperator noselect"></div>
+	<nav id="navtree" class="col aco atv noselect np shdw"></nav>
+	<div class="noselect seperator"></div>
+	<!-- <div class="col aco main printcol"> -->
+	<div id="collist" class="row aco alv"></div>
+	<!-- <div id="alertpanel" class="row alerts"></div> -->
+	<!-- </div> -->
+	<!--<nav id="colboard" class="col aco abv oa lo noselect"></nav>-->
+	<div right class="noselect seperator"></div>
+	<div id="colpage" class="col aco apv printcol shdw"></div>
+	<div id="colinfo" class="col apv ainf shdw"></div>
+	<div id="rowinfo"><div id="statusbar"></div></div>
+	<div id="colpanel" class="col pupanel shdw"></div>
+	<!-- </div> -->
+	<iframe id="baseframe" name="baseframe" class="col " style="display:none;"></iframe>
+	<div id="popupmessage"></div>
+</body>
+</html>

@@ -1,0 +1,386 @@
+{
+    "info": {
+		"title": "RWS A2 Maastricht",
+		"description": ".",
+		"termsOfService": "http://aliconnect.nl/terms/",
+		"contact": { "email": "max.van.kampen@alicon.nl" },
+		"license": { "name": "Apache 2.0", "url": "http://www.apache.org/licenses/LICENSE-2.0.html" },
+		"version": "1.0.0"
+	},
+	"config": {
+        "http": { "port": 9000 },
+        "ws": { "url": "wss://aliconnect.nl:444" },
+        "oauth2": { "url": "https://login.aliconnect.nl/oauth2"},
+		"aim": {
+            "client_id": "C52ABA40-11FE-4400-90B9-CEE5BDA2C5AA",
+            "hostname": "rws.aliconnect.nl",
+            "basePath": "/a2m/api",
+			"domain": "rws",
+			"aud": 2804394
+        },
+        "debug": true
+    },
+    "servers": [
+        {
+            "url": "http:\/\/192.168.0.201:9001\/api\/v1"
+        }
+    ],
+    "tags": [
+        {
+            "name": "Tunnel",
+            "description": ""
+        },
+        {
+            "name": "Verkeersbuis",
+            "description": ""
+        },
+        {
+            "name": "Verkeerslichten",
+            "description": ""
+        },
+        {
+            "name": "Verkeerslicht",
+            "description": ""
+        },
+        {
+            "name": "Vluchtdeur",
+            "description": ""
+        },
+        {
+            "name": "Vluchtdeuren",
+            "description": ""
+        },
+        {
+            "name": "Hulppostkast",
+            "description": ""
+        },
+        {
+            "name": "Hulppostkasten",
+            "description": ""
+        }
+    ],
+    "paths": {
+        "/js": {
+            "get": { "operationId": "aim.js", "responses": { "200": { "description": "successful operation" } }, "security": [ { "aliconnect_auth": [ "read:web" ] } ] }
+        },
+        "/": {
+            "get": { "operationId": "def.get", "responses": { "200": { "description": "successful operation" } }, "security": [ { "aliconnect_auth": [ "read:web" ] } ] },
+            "post": { "operationId": "def.post", "responses": { "200": { "description": "successful operation" } }, "security": [ { "aliconnect_auth": [ "read:web" ] } ] }
+        },
+        "/System(id)": {
+			"get": {
+                "operationId": "item(System).get", "security": [{"aliconnect_auth": ["read:web"]}], "responses": { "200": {"description": "successful operation"} },
+                "parameters": [
+                    {"name": "id", "in": "path", "description": "", "required": true, "schema": { "type": "integer", "format":"int64"}},
+                    {"name": "select", "in": "query", "description": "", "schema": { "type": "string" }},
+                    {"name": "child", "in": "query", "description": "", "schema": { "type": "integer", "format":"int64"}}
+                ]
+            }
+		}
+    },
+    "components": {
+        "schemas": {
+            "Tunnel": {
+                "geo": {
+                    "depth": 1200,
+                    "children": {
+                        "grond_links": {
+                            "depth": 1200,
+                            "height": 50,
+                            "width": 500,
+                            "left": -264,
+                            "bottom": 0,
+                            "distance": 0,
+                            "color": 8503930
+                        },
+                        "grond_rechts": {
+                            "depth": 1200,
+                            "height": 50,
+                            "width": 500,
+                            "left": 264,
+                            "bottom": 0,
+                            "distance": 0,
+                            "color": 8503930
+                        },
+                        "grond_boven": {
+                            "depth": 1200,
+                            "height": 50,
+                            "width": 500,
+                            "bottom": 6.2,
+                            "distance": 0,
+                            "color": 8503930
+                        },
+                        "wand_midden": {
+                            "depth": 1200,
+                            "height": 6,
+                            "width": 2,
+                            "left": 0,
+                            "bottom": 0,
+                            "distance": 0,
+                            "color": "#ccc",
+                            "children": {
+                                "VluchtdeurenL": {
+                                    "left": -1,
+                                    "step": 100,
+                                    "distance": -535,
+                                    "children": []
+                                },
+                                "VluchtdeurenR": {
+                                    "left": 1,
+                                    "step": 100,
+                                    "distance": -535,
+                                    "children": []
+                                },
+                                "HulppostkastenL": {
+                                    "left": -1,
+                                    "step": 50,
+                                    "distance": -590,
+                                    "children": []
+                                },
+                                "HulppostkastenR": {
+                                    "left": 1,
+                                    "step": 50,
+                                    "distance": -590,
+                                    "children": []
+                                }
+                            }
+                        },
+                        "wand_rechts": {
+                            "depth": 1200,
+                            "height": 6,
+                            "width": 2,
+                            "left": 12.5,
+                            "bottom": 0,
+                            "distance": 0,
+                            "color": "#ccc",
+                            "children": {
+                                "Hulppostkasten": {
+                                    "left": -1,
+                                    "step": 50,
+                                    "distance": -590,
+                                    "children": []
+                                }
+                            }
+                        },
+                        "wand_links": {
+                            "depth": 1200,
+                            "height": 6,
+                            "width": 2,
+                            "left": -12.5,
+                            "bottom": 0,
+                            "distance": 0,
+                            "color": "#ccc",
+                            "children": {
+                                "Hulppostkasten": {
+                                    "left": 1,
+                                    "step": 50,
+                                    "distance": -590,
+                                    "children": []
+                                }
+                            }
+                        },
+                        "wand_boven": {
+                            "depth": 1200,
+                            "height": 0.2,
+                            "width": 30,
+                            "left": 0,
+                            "bottom": 6,
+                            "distance": 0,
+                            "color": "#333"
+                        },
+                        "RijbaanL": {
+                            "depth": 5000,
+                            "height": 0.01,
+                            "width": 10,
+                            "left": 6,
+                            "bottom": 0,
+                            "distance": 0,
+                            "color": 0,
+                            "children": {
+                                "lijn1": {
+                                    "depth": 5000,
+                                    "height": 0.01,
+                                    "width": 0.2,
+                                    "left": -4.5,
+                                    "bottom": 0.1,
+                                    "distance": 0,
+                                    "color": 16777215
+                                },
+                                "lijn2": {
+                                    "depth": 5000,
+                                    "height": 0.01,
+                                    "width": 0.2,
+                                    "left": -1,
+                                    "bottom": 0.1,
+                                    "distance": 0,
+                                    "color": 16777215
+                                },
+                                "lijn3": {
+                                    "depth": 5000,
+                                    "height": 0.01,
+                                    "width": 0.2,
+                                    "left": 2.5,
+                                    "bottom": 0.1,
+                                    "distance": 0,
+                                    "color": 16777215
+                                }
+                            }
+                        },
+                        "RijbaanR": {
+                            "depth": 5000,
+                            "height": 0.1,
+                            "width": 10,
+                            "left": -6,
+                            "bottom": 0,
+                            "distance": 0,
+                            "color": 0,
+                            "children": {
+                                "lijn1": {
+                                    "depth": 5000,
+                                    "height": 0.01,
+                                    "width": 0.2,
+                                    "left": -2.5,
+                                    "bottom": 0.1,
+                                    "distance": 0,
+                                    "color": 16777215
+                                },
+                                "lijn2": {
+                                    "depth": 5000,
+                                    "height": 0.01,
+                                    "width": 0.2,
+                                    "left": 1,
+                                    "bottom": 0.1,
+                                    "distance": 0,
+                                    "color": 16777215
+                                },
+                                "lijn3": {
+                                    "depth": 5000,
+                                    "height": 0.01,
+                                    "width": 0.2,
+                                    "left": 4.5,
+                                    "bottom": 0.1,
+                                    "distance": 0,
+                                    "color": 16777215
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "Verkeersbuis": {},
+            "Verkeerslichten": {
+                "mnu": "VRI_Afsluitboom",
+                "geo": {
+                    "distance": -700,
+                    "left": 6,
+                    "step": {
+                        "distance": 12
+                    },
+                    "children": {
+                        "ligger": {
+                            "depth": 0.2,
+                            "height": 0.2,
+                            "width": 10,
+                            "left": 0,
+                            "bottom": 5.5,
+                            "color": 13421772
+                        },
+                        "kolomL": {
+                            "depth": 0.2,
+                            "height": 5.5,
+                            "width": 0.2,
+                            "left": -5,
+                            "bottom": 0,
+                            "distance": 0,
+                            "color": 13421772
+                        },
+                        "kolomR": {
+                            "depth": 0.2,
+                            "height": 5.5,
+                            "width": 0.2,
+                            "left": 5,
+                            "bottom": 0,
+                            "distance": 0,
+                            "color": 13421772
+                        }
+                    }
+                }
+            },
+            "Verkeerslicht": {
+                "geo": {
+                    "depth": 0.1,
+                    "height": 2.4,
+                    "width": 0.8,
+                    "bottom": 5,
+                    "distance": -0.8,
+                    "color": "black",
+                    "left": -5.4,
+                    "step": {
+                        "left": 2.5
+                    },
+                    "children": {
+                        "r": {
+                            "depth": 0.2,
+                            "radius": 0.3,
+                            "left": 0,
+                            "bottom": 0.7,
+                            "distance": 0,
+                            "color": "#999"
+                        },
+                        "y": {
+                            "depth": 0.2,
+                            "radius": 0.3,
+                            "left": 0,
+                            "bottom": 0,
+                            "distance": 0,
+                            "color": "#999"
+                        },
+                        "g": {
+                            "depth": 0.2,
+                            "radius": 0.3,
+                            "left": 0,
+                            "bottom": -0.7,
+                            "distance": 0,
+                            "color": "#999"
+                        }
+                    }
+                },
+                "onchange": "function () {\r\n\t\t\t\t\t\/\/console.log('Verkeerslicht', this);\r\n\t\t\t\t\tif (!this.mesh) return;\r\n\t\t\t\t\tconsole.log('STAND', this.lfv_Verkeerslicht_Verkeersbuis.stand);\r\n\t\t\t\t\tthis.mesh.r.material.color.set(this.lfv_Verkeerslicht_Verkeersbuis.stand == 'rood' ? 'rgb(255,88,50)' : 'gray');\r\n\t\t\t\t\tthis.mesh.y.material.color.set(this.lfv_Verkeerslicht_Verkeersbuis.stand == 'geel' ? 'rgb(255,255,0)' : 'gray');\r\n\t\t\t\t\tthis.mesh.g.material.color.set(this.lfv_Verkeerslicht_Verkeersbuis.stand == 'groen' ? 'rgb(0,255,0)' : 'gray');\r\n\t\t\t\t\tif (this.timeout) clearTimeout(this.timeout);\r\n\t\t\t\t\tif (this.lfv_Verkeerslicht_Verkeersbuis.stand == 'geel_knipperen') (this.set_geel_knipperen = function () {\r\n\t\t\t\t\t\tif (this.lfv_Verkeerslicht_Verkeersbuis.stand != 'geel_knipperen') return;\r\n\t\t\t\t\t\tthis.mesh.y.material.color.set('rgb(255,255,0)');\r\n\t\t\t\t\t\tthis.timeout = setTimeout(function () {\r\n\t\t\t\t\t\t\tthis.mesh.y.material.color.set('gray');\r\n\t\t\t\t\t\t\tthis.timeout = setTimeout(this.set_geel_knipperen.bind(this), 800);\r\n\t\t\t\t\t\t}.bind(this), 1000);\r\n\t\t\t\t\t}).call(this);\r\n\t\t\t\t\tif (['groen','gedoofd'].indexOf(this.lfv_Verkeerslicht_Verkeersbuis.stand) != -1) aim.Videowall.stopcar(-1);\r\n\t\t\t\t\telse if (['geel','rood'].indexOf(this.lfv_Verkeerslicht_Verkeersbuis.stand) != -1) aim.Videowall.stopcar(-aim.config.tunnel.length \/ 2 - 120);\r\n\t\t\t\t}"
+            },
+            "Vluchtdeur": {
+                "geo": {
+                    "depth": 1,
+                    "height": 4,
+                    "width": 0.2,
+                    "left": 0,
+                    "bottom": -3,
+                    "color": "green"
+                }
+            },
+            "Vluchtdeuren": {
+                "geo": {
+                    "step": 100,
+                    "distance": -535,
+                    "children": []
+                }
+            },
+            "Hulppostkast": {
+                "geo": {
+                    "depth": 1.6,
+                    "height": 1.6,
+                    "width": 0.2,
+                    "left": 0,
+                    "bottom": -2,
+                    "color": "red"
+                }
+            },
+            "Hulppostkasten": {
+                "geo": {
+                    "step": 50,
+                    "distance": -590,
+                    "children": []
+                }
+            }
+        }
+    }
+}

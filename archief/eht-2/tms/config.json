@@ -1,0 +1,14 @@
+{
+  "config": {
+    "debug": true,
+    "http": {
+      "port": 9001
+    },
+    "ws": {
+      "url": "wss://aliconnect.nl:444"
+    },
+    "aim": {
+      "url": "https://rws.aliconnect.nl/eht/tms/webroot/api"
+    }
+  }
+}

@@ -1,0 +1,37 @@
+
+<html>
+<head>
+  <link rel="stylesheet" href="/v1/src/css/web.css" />
+  <link rel="stylesheet" href="/v1/src/css/icon.css" />
+  <link rel="stylesheet" href="css/bstti.css" />
+  <script src="/v1/src/js/aim.js"></script>
+  <script src="/v1/src/js/web.js"></script>
+  <!-- <script src="pdf.worker.js" async></script> -->
+  <script src="//mozilla.github.io/pdf.js/build/pdf.js"></script>
+  <script src="//mozilla.github.io/pdf.js/build/pdf.worker.js" async></script>
+  <script src="js/bstti.js"></script>
+  <!-- <script src="js/operations.js"></script> -->
+</head>
+<body class="row">
+  <div>
+    <ol>
+      <li><a target="example" id="pdfsource">input/bstti.pdf</a></li>
+      <li><button onclick="on.pdf_to_pages()">input/bstti.pdf<br>naar<br>output/bstti.json</button><br><progress id="progress"></progress></li>
+      <li><button onclick="on.make_bstti_yaml()">output/bstti.json<br>naar<br>output/bstti.yaml</button></li>
+      <li><button onclick="on.make_bstti_config_yaml()">output/bstti.yaml<br>naar<br>output/bstti.html<br>(config.local.yaml)</button></li>
+      <li><a target="example" href="../../../config.local.yaml">config.local.yaml</a></li>
+      <li><button onclick="on.make_js()">config.local.yaml<br>naar<br>js/config.control.js</button></li>
+    </ol>
+    <!-- <pre id="jscode"></pre> -->
+    <!-- <div id="spec"></div> -->
+  </div>
+  <iframe id="example" name="example"></iframe>
+  <!-- <div class="oa">
+    <pre id="md"></pre>
+    <pre id="config"></pre>
+    <pre id="api"></pre>
+    <pre id="js"></pre>
+    <pre id="st"></pre>
+  </div> -->
+</body>
+</html>

@@ -1,0 +1,74 @@
+{
+    "client_id": "C684A593-ED4E-45C9-925B-B4FCD9100D85",
+    "debug": true,
+    "http": {
+        "cert1": "/cert/192.168.0.135.crt",
+        "key": "/cert/192.168.0.135.key",
+        "port": 8443
+    },
+    "ws": {
+        "url": "wss://aliconnect.nl:444"
+    },
+    "api": {
+        "hostname": "aliconnect.nl",
+        "port": 443,
+        "basePath": "/api"
+    },
+    "auth": {
+        "hostname": "login.aliconnect.nl",
+        "port": 443,
+        "basePath": "/oauth2"
+    },
+    "sub": 3443787,
+    "i2c": {
+        "1": {
+            "address": 32,
+            "device": "/dev/i2c-1",
+            "debug": false
+        }
+    },
+    "Verkeerslichten": [
+        {
+            "Verkeerslicht": [
+                {
+                    "i2c": 1,
+                    "doGroen": 5,
+                    "doGeel": 6,
+                    "doRood": 7
+                },
+                {
+                    "i2c": 1,
+                    "doGroen": 5,
+                    "doGeel": 6,
+                    "doRood": 7
+                },
+                {
+                    "i2c": 1,
+                    "doGroen": 5,
+                    "doGeel": 6,
+                    "doRood": 7
+                },
+                {
+                    "i2c": 1,
+                    "doGroen": 5,
+                    "doGeel": 6,
+                    "doRood": 7
+                },
+                {
+                    "i2c": 1,
+                    "doGroen": 5,
+                    "doGeel": 6,
+                    "doRood": 7
+                },
+                {
+                    "i2c": 1,
+                    "doGroen": 5,
+                    "doGeel": 6,
+                    "doRood": 7
+                }
+            ]
+        }
+    ],
+    "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJzaGEyNTYifQ.eyJpc3MiOiJsb2dpbi5hbGljb25uZWN0Lm5sIiwic3ViIjoiMzQ0MzgwNCIsImF1ZCI6IjI4MDQzOTQiLCJjbGllbnRfaWQiOjM0NDM4MDQsInNjb3BlIjoiICIsImlhdCI6MTU3NDkzNDkxMiwiZXhwIjoxNTc4NTM0OTEyfQ.8_-T-AMhCEZfaIEFFt8H0DYzb6GreV4VAMV97OGL1RQ",
+    "id_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJzaGEyNTYifQ.eyJpc3MiOiJsb2dpbi5hbGljb25uZWN0Lm5sIiwic3ViIjoiMzQ0MzgwNCIsIm5vbmNlIjoiQjk1MkE3MDctMkE1OS00MUUxLUFDODMtMkYwRTdDMUIzNDc5IiwiYXV0aF90aW1lIjoxNTc0OTM0OTEyLCJhdWQiOiIyODA0Mzk0IiwiY2xpZW50X2lkIjozNDQzODA0LCJzY29wZSI6bnVsbCwiZXhwIjoxNTc4NTM0OTEyLCJpYXQiOjE1NzQ5MzQ5MTJ9.GRjQIAE_S7pk7dER3Eih12gvsQQ7EpQKQq6vjna76nc"
+}

@@ -1,0 +1,13 @@
+{
+  "info": {
+    "name": "TMS EHT"
+  },
+  "client": {
+    "servers": [
+      {
+        "url": "https://rws-tms.aliconnect.nl/api"
+      }
+    ]
+  },
+  "debug": true
+}

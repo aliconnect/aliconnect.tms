@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <link href="/api/css/web_debug.css" rel="stylesheet"/>
+  <script src="/api/js/aim_debug.js"
+          libraries=""
+          type="text/javascript" ></script>
+</head>
+<body>
+<pre id="console"></pre>
+<script>
+(async function () {
+  $().extend({
+    authProvider: {
+
+    },
+    ws: {
+      url: "wss://aliconnect.nl:444"
+    },
+    client: {
+      servers: [
+        {
+          url: "https://rws.aliconnect.nl/api"
+        }
+      ]
+    }
+  })
+  $()
+  .on('load', async event => {
+    const topId = $().authProvider().sub;// 2804342;
+
+    await $().url($().client().servers[0].url+'.json').get().then(event => $().extend(event.body));
+
+    await $().api('/').query('request_type', 'build_data').query('id', topId).get().then(event => $().extend(event.body));
+    const items = $().value;
+    const item = items.find(item => item.ID == topId);
+    let schemaName = item.schemaName;
+    await $(document.head).script(`/tms/lib/${schemaName}/index.js`);
+    console.debug(item)
+    console.debug(...$.log(item.header0, 'UP'));
+  })
+})()
+</script>
+
+</body>
+</html>

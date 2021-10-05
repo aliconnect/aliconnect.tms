@@ -1,0 +1,249 @@
+{
+  "info": {
+    "title": "RWS A2M",
+    "description": ".",
+    "termsOfService": "http://aliconnect.nl/terms/",
+    "contact": {
+      "email": "max.van.kampen@alicon.nl"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0.0"
+  },
+  "config": {
+    "debug": 1,
+    "http": {
+      "port": 9000
+    },
+    "ws": {
+      "url": "wss://aliconnect.nl:444"
+    },
+    "oauth2": {
+      "protocol": "https:",
+      "hostname": "login.aliconnect.nl",
+      "basePath": "/api/oauth2"
+    },
+    "aim": {
+      "aud": 2804394,
+      "client_id": "71BED2B1-E21C-4EFF-9881-2D3960A0523E",
+      "protocol": "https:",
+      "hostname": "rws.aliconnect.nl",
+      "basePath": "/tms/a2m/webroot/api",
+      "scope": "name email",
+      "api_key": "eyJ0eXAiOiJKV1QiLCJhbGciOiJzaGEyNTYifQ.eyJpc3MiOiJBMk0uYWxpY29ubmVjdC5ubCIsImNsaWVudF9pZCI6IjI4MDQzOTQiLCJzdWIiOiIzNDQ4OTE0IiwiYXVkIjoiMjgxNzQwNCIsImF1dGhfdGltZSI6MTU4MzA5MDM3MywiZXhwIjoxNTgzMDkwNDMzLCJpYXQiOjE1ODMwOTAzNzN9.75Hk5Wn6aSJP0HtNW23-G7E8iq8aOlGvxWr0NUkPLf4"
+    }
+  },
+  "paths": {
+    "/Company(id)": {
+      "get": {
+        "operationId": "/item(Company)/get",
+        "security": [
+          {
+            "aliconnect_auth": [
+              "read:web"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "select",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "child",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ]
+      },
+      "patch": {
+        "operationId": "/item(Company)/patch",
+        "security": [
+          {
+            "aliconnect_auth": [
+              "read:web"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "select",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "child",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ]
+      }
+    },
+    "/System(id)": {
+      "get": {
+        "operationId": "/item(System)/get",
+        "security": [
+          {
+            "aliconnect_auth": [
+              "read:web"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "select",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "child",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ]
+      },
+      "patch": {
+        "operationId": "/item(System)/patch",
+        "security": [
+          {
+            "aliconnect_auth": [
+              "read:web"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "select",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "child",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ]
+      }
+    },
+    "/js": {
+      "get": {
+        "operationId": "/aim/js",
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        },
+        "security": [
+          {
+            "aliconnect_auth": [
+              "read:web"
+            ]
+          }
+        ]
+      }
+    },
+    "/": {
+      "post": {
+        "operationId": "/def/post",
+        "security": [
+          {
+            "aliconnect_auth": [
+              "read:web"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
